@@ -1,0 +1,234 @@
+﻿@page "/Home"
+@page "/"
+
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject NavigationManager navMgr
+@inject IEmployeeHttpClient employeeHttpClient
+
+@* POST EMPLOYEE *@
+<div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+    <div class="form-group card-body">
+        <h3>Post:</h3>
+        <br/>
+        <div class="row">
+            <label>Login:</label>
+            <div class="col-4">
+                <input type="login" placeholder="Login" @bind="login"/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-4">
+                <label>Password:</label>
+                <div class="col-4">
+                    <input type="password" placeholder="Enter password" @bind="password"/>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        @if (returnedEmployeeFromAdd != null)
+        {
+            <div class="field">
+                <label style="color: green">
+                    <h1>Added:</h1>
+                    <br/>
+                    <a>Id: @returnedEmployeeFromAdd.id</a>
+                    <a>Login: @returnedEmployeeFromAdd.login</a>
+                    <a>Password: @returnedEmployeeFromAdd.password</a>
+                </label>
+            </div>
+        }
+        
+        <div class="field">
+            <button class="button btn-dark" @onclick="PostEmployee">Post</button>
+        </div>
+    </div>
+</div>
+
+
+<br/>
+
+@* GET BY ID *@
+<div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+    <div class="form-group card-body">
+    <div class="row">
+        <label>Get User By ID:</label>
+        <div class="col-4">
+            <input type="id" placeholder="ID" @bind="id"/>
+        </div>
+        <div class="field">
+            <button class="button btn-dark" @onclick="GetById">Get</button>
+        </div>
+    </div>
+    <br/>
+    @if (returnedEmployeeById != null)
+    {
+        <div class="field">
+            <label style="color: green">
+                <h1>Returned by ID:</h1>
+                <br/>
+                <a>Id: @returnedEmployeeById.id</a>
+                <a>Login: @returnedEmployeeById.login</a>
+                <a>Password: @returnedEmployeeById.password</a>
+            </label>
+        </div>
+    }
+    </div>
+</div>
+
+<br/>
+
+@* DELETE EMPLOYEE *@
+<div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+    <div class="form-group card-body">
+        <div class="row">
+            <label>Delete User By ID:</label>
+            <div class="col-4">
+                <input type="id" placeholder="ID" @bind="id"/>
+            </div>
+            <div class="field">
+                <button class="button btn-dark" @onclick="DeleteById">Delete</button>
+            </div>
+        </div>
+        <br/>
+        @if (returnedEmployeeFromDelete != null)
+        {
+            <div class="field">
+                <label style="color: green">
+                    <h1>Returned by ID:</h1>
+                    <br/>
+                    <a>Id: @returnedEmployeeFromDelete.id</a>
+                    <a>Login: @returnedEmployeeFromDelete.login</a>
+                    <a>Password: @returnedEmployeeFromDelete.password</a>
+                </label>
+            </div>
+        }
+    </div>
+</div>
+
+<br/>
+
+@* EMPLOYEE LIST *@
+<div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+    <div class="form-group card-body">
+        <div class="row">
+            <label>All Employees:</label>
+            <div class="field">
+               <button class="button btn-dark" @onclick="UpdateEmployeeList">Update</button>
+            </div>
+            @if (allEmployees != null)
+            {
+                foreach (var emp in allEmployees)
+                {
+                    <div class="field">
+                        <a>Id: @emp.id</a>
+                        <a>Login: @emp.login</a>
+                        <a>Password: @emp.password</a>
+                        <br/>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<br/>
+
+@* UPDATE EMPLOYEE *@
+<div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+    <div class="form-group card-body">
+        <h3>Update Employee:</h3>
+        <br/>
+                <div class="row">
+                    <label>ID:</label>
+                    <div class="col-4">
+                        <input type="id" placeholder="ID" @bind="updatedId"/>
+                    </div>
+                </div>
+        <br/>
+        <div class="row">
+            <label>Login:</label>
+            <div class="col-4">
+                <input type="login" placeholder="Login" @bind="updatedLogin"/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-4">
+                <label>Password:</label>
+                <div class="col-4">
+                    <input type="password" placeholder="Enter password" @bind="updatedPassword"/>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        @if (returnedUpdatedEmployee != null)
+        {
+            <div class="field">
+                <label style="color: green">
+                    <h1>Added:</h1>
+                    <br/>
+                    <a>Id: @returnedUpdatedEmployee.id</a>
+                    <a>Login: @returnedUpdatedEmployee.login</a>
+                    <a>Password: @returnedUpdatedEmployee.password</a>
+                </label>
+            </div>
+        }
+        <div class="field">
+            <button class="button btn-dark" @onclick="UpdateEmployee">Update</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string login;
+    private string password;
+    private long id;
+    private long updatedId;
+    private string updatedLogin;
+    private string updatedPassword;
+    private Employee returnedUpdatedEmployee;
+    private Employee returnedEmployeeFromAdd;
+    private Employee returnedEmployeeFromDelete;
+    private Employee returnedEmployeeById;
+    private ICollection<Employee> allEmployees;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        allEmployees = await employeeHttpClient.GetAllEmployees();
+
+    }
+
+    private async Task PostEmployee()
+    {
+        Employee newEmployee = new Employee(login, password);
+        Console.WriteLine("HOME: " + newEmployee.id);
+        returnedEmployeeFromAdd = await employeeHttpClient.AddEmployeeAsync(newEmployee);
+    }
+
+    private async Task GetById()
+    {
+        returnedEmployeeById = await employeeHttpClient.GetEmployeeByIdAsync(id);
+    }
+
+    private async Task DeleteById()
+    {
+        returnedEmployeeFromDelete = await employeeHttpClient.DeleteEmployeeByIdAsync(id);
+    }
+
+    private async Task UpdateEmployee()
+    {
+        Employee updatedEmployee = new Employee(updatedId, updatedLogin, updatedPassword);
+        returnedUpdatedEmployee = await employeeHttpClient.UpdateEmployeeAsync(updatedEmployee);
+    }
+
+    private async Task UpdateEmployeeList()
+    {
+        allEmployees = await employeeHttpClient.GetAllEmployees();
+    }
+    
+}
