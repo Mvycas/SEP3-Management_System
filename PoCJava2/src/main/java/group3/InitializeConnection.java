@@ -64,6 +64,10 @@ public class InitializeConnection
             command = ((ObjectTransfer) receivedObject).getCommand();
             object = ((ObjectTransfer) receivedObject).getObject();
         }
+        else
+        {
+            System.out.println("Received the wrong object type");
+        }
 
         return object;
 

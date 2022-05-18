@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class Tier3Server implements Runnable{
+
     @Override
     public void run()
     {

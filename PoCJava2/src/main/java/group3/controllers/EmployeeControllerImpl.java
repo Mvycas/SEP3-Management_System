@@ -2,6 +2,7 @@ package group3.controllers;
 
 import group3.InitializeConnection;
 import group3.model.Employee;
+import group3.validation.IValidateUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class EmployeeControllerImpl implements IEmployeeController
-{
+public class EmployeeControllerImpl implements IEmployeeController {
 
     @Autowired
     InitializeConnection initializeConnection;
+
+    @Autowired
+    IValidateUser validateUser;
 
 
     //get employees
@@ -31,8 +34,7 @@ public class EmployeeControllerImpl implements IEmployeeController
 
     //get employee by id
     @GetMapping("/employees/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
-    {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId) {
 //        Employee employee = EmployeeValidationImpl;
 //        return ResponseEntity.ok().body(employee);
         return null;
@@ -40,8 +42,7 @@ public class EmployeeControllerImpl implements IEmployeeController
 
     //save employee
     @PostMapping("employees")
-    public Employee createEmployee(@RequestBody Employee employee) throws IOException, InterruptedException, ClassNotFoundException
-    { //Request Body Deserializes
+    public Employee createEmployee(@RequestBody Employee employee) throws IOException, InterruptedException, ClassNotFoundException { //Request Body Deserializes
 
         System.out.println("Posting...");
         Employee newemployee = (Employee) initializeConnection.getReceivedObject("post", employee); //should check this in another place maybe instead
@@ -52,8 +53,7 @@ public class EmployeeControllerImpl implements IEmployeeController
 
     //update employee
     @PutMapping("/employees/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId, @RequestBody Employee employeeDetails)
-    {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId, @RequestBody Employee employeeDetails) {
 
 //        Employee employee = employeeRepository.findById(employeeId)
 //                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
@@ -68,8 +68,7 @@ public class EmployeeControllerImpl implements IEmployeeController
 
     //delete employee
     @DeleteMapping("employees/{id}")
-    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
-    {
+    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId) {
 //        Employee employee = employeeRepository.findById(employeeId)
 //                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
 //
@@ -79,5 +78,20 @@ public class EmployeeControllerImpl implements IEmployeeController
 //
 //        return response;
         return null;
+    }
+
+    @PostMapping("check_employee")
+    public boolean checkEmployee(@RequestBody Employee employee) throws IOException, ClassNotFoundException
+    {
+        if (validateUser.validateUser(employee))
+        {
+            System.out.println("Returning true from API");
+            return true;
+        }
+        else
+        {
+            System.out.println("Returning false from API");
+            return false;
+        }
     }
 }

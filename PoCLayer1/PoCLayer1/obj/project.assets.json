@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\PoC\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
+      "projectUniqueName": "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
       "projectName": "PoCLayer1",
-      "projectPath": "C:\\PoC\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
+      "projectPath": "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
       "packagesPath": "C:\\Users\\simas\\.nuget\\packages\\",
-      "outputPath": "C:\\PoC\\PoCLayer1\\PoCLayer1\\obj\\",
+      "outputPath": "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\simas\\AppData\\Roaming\\NuGet\\NuGet.Config"

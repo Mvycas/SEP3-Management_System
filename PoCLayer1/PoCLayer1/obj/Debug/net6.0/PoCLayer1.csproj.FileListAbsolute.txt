@@ -25,3 +25,30 @@ C:\PoC\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.dll
 C:\PoC\PoCLayer1\PoCLayer1\obj\Debug\net6.0\ref\PoCLayer1.dll
 C:\PoC\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.pdb
 C:\PoC\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.genruntimeconfig.cache
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\appsettings.Development.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\appsettings.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.staticwebassets.runtime.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.exe
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.deps.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.runtimeconfig.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.dll
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\ref\PoCLayer1.dll
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.pdb
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.csproj.AssemblyReference.cache
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.GeneratedMSBuildEditorConfig.editorconfig
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.AssemblyInfoInputs.cache
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.AssemblyInfo.cs
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.csproj.CoreCompileInputs.cache
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.MvcApplicationPartsAssemblyInfo.cache
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.RazorAssemblyInfo.cache
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.RazorAssemblyInfo.cs
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\staticwebassets.build.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\staticwebassets.development.json
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\bundle\PoCLayer1.styles.css
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\projectbundle\PoCLayer1.bundle.scp.css
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.dll
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\ref\PoCLayer1.dll
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.pdb
+C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.genruntimeconfig.cache

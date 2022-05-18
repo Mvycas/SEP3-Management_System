@@ -13,10 +13,9 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
 
         string employeeToJson = JsonSerializer.Serialize(employee);
         
-        Console.WriteLine(employeeToJson);
-        //PROBLEM most likely
+        
         StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
-        // ;(
+        
 
         HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/employees", content);
         
@@ -121,6 +120,32 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
             PropertyNameCaseInsensitive = true
         })!;
   
+        return returned;
+    }
+
+    public async Task<bool> CheckIfEmployeeExistsAsync(Employee employee)
+    {
+        using HttpClient client = new();
+
+        string employeeToJson = JsonSerializer.Serialize(employee);
+
+        StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
+        
+
+        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/check_employee", content);
+        
+        string responseContent = await response.Content.ReadAsStringAsync();
+    
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+    
+        bool returned = JsonSerializer.Deserialize<bool>(responseContent, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
         return returned;
     }
 }
