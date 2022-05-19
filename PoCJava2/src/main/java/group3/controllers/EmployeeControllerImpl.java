@@ -46,7 +46,7 @@ public class EmployeeControllerImpl implements IEmployeeController {
 
         System.out.println("Posting...");
         Employee newemployee = (Employee) initializeConnection.getReceivedObject("post", employee); //should check this in another place maybe instead
-        System.out.println(newemployee.getLogin());
+        System.out.println(newemployee.getUsername());
         //System.out.println("Sent object employee: " + employee.getId() + " " + employee.getLogin() + " " + employee.getPassword());
         return newemployee;
     }

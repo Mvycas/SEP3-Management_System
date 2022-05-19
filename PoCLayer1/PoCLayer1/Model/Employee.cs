@@ -1,27 +1,19 @@
 ﻿namespace PoCLayer1.Model;
 
-public class Employee
+public class Employee : User
 {
-    public Employee()
+
+    public Employee(long id, string username, string password, string firstName, string lastName,
+        string email, string phoneNumber, string authLevel, string address, double hours) 
+        : base(id, username, password, firstName, lastName, email, phoneNumber, authLevel)
     {
+        Address = address;
+        Hours = hours;
+        AuthLevel = "Employee";
     }
 
-    public Employee(string login, string password)
-    {
-        this.login = login;
-        this.password = password;
-    }
 
-    public Employee( long id, string login, string password)
-    {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-    }
+    public string Address { get; set; }
+    public double Hours { get; set; }
     
-    
-    public long  id { get; set; }
-    public string login { get; set; }
-    public string password { get; set; }
-
 }

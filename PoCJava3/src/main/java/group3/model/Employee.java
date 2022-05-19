@@ -3,55 +3,36 @@ package group3.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "employee")
-public class Employee implements Serializable {
+@Entity(name = "employee")
+public class Employee extends User implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "address")
+    private String address;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "hours")
+    private String hours;
 
-    public Employee() {
+    public Employee() {}
+
+    public Employee(String address, String hours) {
+        this.address = address;
+        this.hours = hours;
     }
 
-    public Employee(long id, String login, String password)
-    {
-        this.id = id;
-        this.login = login;
-        this.password = password;
+    public String getAddress() {
+        return address;
     }
 
-    public long getId() {
-        return id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getHours() {
+        return hours;
     }
 
-    public String getLogin()
-    {
-        return login;
-    }
-
-    public void setLogin(String login)
-    {
-        this.login = login;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 }

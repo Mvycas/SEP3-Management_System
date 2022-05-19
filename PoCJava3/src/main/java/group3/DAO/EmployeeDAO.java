@@ -36,7 +36,7 @@ public class EmployeeDAO implements IEmployeeDAO
     @Override
     public Employee createEmployee(Employee employee)
     {
-        
+
         return this.employeeRepository.save(employee); //returns entity with id
     }
 
@@ -46,7 +46,7 @@ public class EmployeeDAO implements IEmployeeDAO
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
 
-        employee.setLogin(employeeDetails.getLogin());
+        employee.setUsername(employeeDetails.getUsername());
         employee.setPassword(employeeDetails.getPassword());
 
         return ResponseEntity.ok(this.employeeRepository.save(employee));

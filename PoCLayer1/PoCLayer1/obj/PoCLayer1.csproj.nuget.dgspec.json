@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj": {}
+    "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj": {
+    "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
+        "projectUniqueName": "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
         "projectName": "PoCLayer1",
-        "projectPath": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
-        "packagesPath": "C:\\Users\\Martynas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\obj\\",
+        "projectPath": "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
+        "packagesPath": "C:\\Users\\simas\\.nuget\\packages\\",
+        "outputPath": "C:\\SEP3 Code Management System\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Martynas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\simas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"

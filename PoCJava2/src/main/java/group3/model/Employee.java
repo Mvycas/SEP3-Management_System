@@ -2,49 +2,26 @@ package group3.model;
 
 import java.io.Serializable;
 
-public class Employee implements Serializable
+public class Employee extends User implements Serializable
 {
+    private String address;
+    private double hours;
 
-    private long id;
-
-    private String login;
-
-    private String password;
-
-    public Employee() {}
-
-    public Employee(long id, String login, String password)
+    public Employee(long id, String username, String password, String firstName,
+                    String lastName, String email, String phoneNumber, String authLevel,
+                    String address, double hours)
     {
-        this.id = id;
-        this.login = login;
-        this.password = password;
+        super(id, username, password, firstName, lastName, email, phoneNumber, authLevel);
+        this.address = address;
+        this.hours = hours;
+        this.setAuthLevel("Employee");
     }
 
-    public long getId() {
-        return id;
-    }
+    public String getAddress() {return address;}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setAddress(String address) {this.address = address;}
 
-    public String getLogin()
-    {
-        return login;
-    }
+    public double getHours() {return hours;}
 
-    public void setLogin(String login)
-    {
-        this.login = login;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
+    public void setHours(double hours) {this.hours = hours;}
 }

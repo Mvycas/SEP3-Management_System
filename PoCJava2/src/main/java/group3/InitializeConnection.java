@@ -1,15 +1,11 @@
 package group3;
 
-import group3.model.Employee;
-import group3.model.ObjectTransfer;
-import org.springframework.context.annotation.Bean;
+import group3.model.TransferObject;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class InitializeConnection
@@ -51,18 +47,18 @@ public class InitializeConnection
 
         System.out.println("Sent Command: " + command);
         System.out.println("Sent Object: " + object);
-        ObjectTransfer objectTransfer = new ObjectTransfer(object, command);
+        TransferObject transferObject = new TransferObject(object, command);
 
-        objectOutputStream.writeObject(objectTransfer);
+        objectOutputStream.writeObject(transferObject);
 
         Object receivedObject = objectInputStream.readObject();
 
         System.out.println("Received: " + receivedObject);
 
-        if (receivedObject instanceof ObjectTransfer)
+        if (receivedObject instanceof TransferObject)
         {
-            command = ((ObjectTransfer) receivedObject).getCommand();
-            object = ((ObjectTransfer) receivedObject).getObject();
+            command = ((TransferObject) receivedObject).getCommand();
+            object = ((TransferObject) receivedObject).getObject();
         }
         else
         {
