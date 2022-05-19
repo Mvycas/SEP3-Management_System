@@ -11,11 +11,11 @@ public class Employee extends User implements Serializable {
     private String address;
 
     @Column(name = "hours")
-    private String hours;
+    private double hours;
 
     public Employee() {}
 
-    public Employee(String address, String hours) {
+    public Employee(String address, double hours) {
         this.address = address;
         this.hours = hours;
     }
@@ -28,11 +28,11 @@ public class Employee extends User implements Serializable {
         this.address = address;
     }
 
-    public String getHours() {
+    public double getHours() {
         return hours;
     }
 
-    public void setHours(String hours) {
+    public void setHours(double hours) {
         this.hours = hours;
     }
 }

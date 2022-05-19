@@ -4,7 +4,7 @@
 @using PoCLayer1.Http
 @using PoCLayer1.Model
 @inject NavigationManager navMgr
-@inject IEmployeeHttpClient employeeHttpClient
+@inject IUserHttpClient _userHttpClient
 
 @* POST EMPLOYEE *@
 <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
@@ -12,9 +12,9 @@
         <h3>Post:</h3>
         <br/>
         <div class="row">
-            <label>Login:</label>
+            <label>Post:</label>
             <div class="col-4">
-                <input type="login" placeholder="Login" @bind="login"/>
+                <input type="login" placeholder="Login" @bind="username"/>
             </div>
         </div>
         <br/>
@@ -27,22 +27,31 @@
             </div>
         </div>
         <br/>
-
-        @if (returnedEmployeeFromAdd != null)
+        <div class="row">
+            <div class="col-4">
+                <label>Auth Level:</label>
+                <div class="col-4">
+                    <input type="password" placeholder="Enter password" @bind="authLevel"/>
+                </div>
+            </div>
+        </div>
+        <br/>
+        
+        @if (returnedUserFromAdd != null)
         {
             <div class="field">
                 <label style="color: green">
                     <h1>Added:</h1>
                     <br/>
-                    <a>Id: @returnedEmployeeFromAdd.id</a>
-                    <a>Login: @returnedEmployeeFromAdd.login</a>
-                    <a>Password: @returnedEmployeeFromAdd.password</a>
+                    <a>Id: @returnedUserFromAdd.id</a>
+                    <a>Login: @returnedUserFromAdd.username</a>
+                    <a>Password: @returnedUserFromAdd.password</a>
                 </label>
             </div>
         }
         
         <div class="field">
-            <button class="button btn-dark" @onclick="PostEmployee">Post</button>
+            <button class="button btn-dark" @onclick="PostUser">Post</button>
         </div>
     </div>
 </div>
@@ -63,15 +72,15 @@
         </div>
     </div>
     <br/>
-    @if (returnedEmployeeById != null)
+    @if (returnedUserById != null)
     {
         <div class="field">
             <label style="color: green">
                 <h1>Returned by ID:</h1>
                 <br/>
-                <a>Id: @returnedEmployeeById.id</a>
-                <a>Login: @returnedEmployeeById.login</a>
-                <a>Password: @returnedEmployeeById.password</a>
+                <a>Id: @returnedUserById.id</a>
+                <a>Login: @returnedUserById.username</a>
+                <a>Password: @returnedUserById.password</a>
             </label>
         </div>
     }
@@ -93,15 +102,15 @@
             </div>
         </div>
         <br/>
-        @if (returnedEmployeeFromDelete != null)
+        @if (returnedUserFromDelete != null)
         {
             <div class="field">
                 <label style="color: green">
                     <h1>Returned by ID:</h1>
                     <br/>
-                    <a>Id: @returnedEmployeeFromDelete.id</a>
-                    <a>Login: @returnedEmployeeFromDelete.login</a>
-                    <a>Password: @returnedEmployeeFromDelete.password</a>
+                    <a>Id: @returnedUserFromDelete.id</a>
+                    <a>Login: @returnedUserFromDelete.username</a>
+                    <a>Password: @returnedUserFromDelete.password</a>
                 </label>
             </div>
         }
@@ -114,17 +123,17 @@
 <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
     <div class="form-group card-body">
         <div class="row">
-            <label>All Employees:</label>
+            <label>All Users:</label>
             <div class="field">
-               <button class="button btn-dark" @onclick="UpdateEmployeeList">Update</button>
+               <button class="button btn-dark" @onclick="UpdateUserList">Update</button>
             </div>
-            @if (allEmployees != null)
+            @if (allUsers != null)
             {
-                foreach (var emp in allEmployees)
+                foreach (var emp in allUsers)
                 {
                     <div class="field">
                         <a>Id: @emp.id</a>
-                        <a>Login: @emp.login</a>
+                        <a>Login: @emp.username</a>
                         <a>Password: @emp.password</a>
                         <br/>
                     </div>
@@ -139,7 +148,7 @@
 @* UPDATE EMPLOYEE *@
 <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
     <div class="form-group card-body">
-        <h3>Update Employee:</h3>
+        <h3>Update User:</h3>
         <br/>
                 <div class="row">
                     <label>ID:</label>
@@ -151,7 +160,7 @@
         <div class="row">
             <label>Login:</label>
             <div class="col-4">
-                <input type="login" placeholder="Login" @bind="updatedLogin"/>
+                <input type="login" placeholder="Login" @bind="updatedUsername"/>
             </div>
         </div>
         <br/>
@@ -165,70 +174,71 @@
         </div>
         <br/>
 
-        @if (returnedUpdatedEmployee != null)
+        @if (returnedUpdatedUser != null)
         {
             <div class="field">
                 <label style="color: green">
                     <h1>Added:</h1>
                     <br/>
-                    <a>Id: @returnedUpdatedEmployee.id</a>
-                    <a>Login: @returnedUpdatedEmployee.login</a>
-                    <a>Password: @returnedUpdatedEmployee.password</a>
+                    <a>Id: @returnedUpdatedUser.id</a>
+                    <a>Login: @returnedUpdatedUser.username</a>
+                    <a>Password: @returnedUpdatedUser.password</a>
                 </label>
             </div>
         }
         <div class="field">
-            <button class="button btn-dark" @onclick="UpdateEmployee">Update</button>
+            <button class="button btn-dark" @onclick="UpdateUser">Update</button>
         </div>
     </div>
 </div>
 
 @code {
-    private string login;
+    private string username;
     private string password;
+    private string authLevel;
     private long id;
     private long updatedId;
-    private string updatedLogin;
+    private string updatedUsername;
     private string updatedPassword;
-    private Employee returnedUpdatedEmployee;
-    private Employee returnedEmployeeFromAdd;
-    private Employee returnedEmployeeFromDelete;
-    private Employee returnedEmployeeById;
-    private ICollection<Employee> allEmployees;
+    private User returnedUpdatedUser;
+    private User returnedUserFromAdd;
+    private User returnedUserFromDelete;
+    private User returnedUserById;
+    private ICollection<User> allUsers;
 
     protected override async Task OnInitializedAsync()
     {
 
-        allEmployees = await employeeHttpClient.GetAllEmployees();
+        allUsers = await _userHttpClient.GetAllUsersAsync();
 
     }
 
-    private async Task PostEmployee()
+    private async Task PostUser()
     {
-        Employee newEmployee = new Employee(login, password);
-        Console.WriteLine("HOME: " + newEmployee.id);
-        returnedEmployeeFromAdd = await employeeHttpClient.AddEmployeeAsync(newEmployee);
+        User newUser = new User(default, username, password, "fName", "lName", "email", "98519581", authLevel);
+        Console.WriteLine("HOME: " + newUser.id);
+        returnedUserFromAdd = await _userHttpClient.AddUserAsync(newUser);
     }
 
     private async Task GetById()
     {
-        returnedEmployeeById = await employeeHttpClient.GetEmployeeByIdAsync(id);
+        returnedUserById = await _userHttpClient.GetUserByIdAsync(id);
     }
 
     private async Task DeleteById()
     {
-        returnedEmployeeFromDelete = await employeeHttpClient.DeleteEmployeeByIdAsync(id);
+        returnedUserFromDelete = await _userHttpClient.DeleteUserByIdAsync(id);
     }
 
-    private async Task UpdateEmployee()
+    private async Task UpdateUser()
     {
-        Employee updatedEmployee = new Employee(updatedId, updatedLogin, updatedPassword);
-        returnedUpdatedEmployee = await employeeHttpClient.UpdateEmployeeAsync(updatedEmployee);
+         // User updateUser = new User(updatedId, updatedLogin, updatedPassword);
+         // returnedUpdatedUser = await employeeHttpClient.UpdateUserAsync(updatedUser);
     }
 
-    private async Task UpdateEmployeeList()
+    private async Task UpdateUserList()
     {
-        allEmployees = await employeeHttpClient.GetAllEmployees();
+        allUsers = await _userHttpClient.GetAllUsersAsync();
     }
     
 }

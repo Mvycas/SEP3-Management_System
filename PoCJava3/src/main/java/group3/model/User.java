@@ -6,37 +6,42 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phoneNumber", unique = true)
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "authLevel", nullable = false)
+    @Column(name = "authLevel")
     private String authLevel;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String firstName, String lastName, String authLevel) {
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(long id, String username, String password, String firstName, String lastName, String authLevel) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -45,7 +50,7 @@ public abstract class User implements Serializable {
         this.authLevel = authLevel;
     }
 
-    public User(Long id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String authLevel) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String authLevel) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -56,7 +61,7 @@ public abstract class User implements Serializable {
         this.authLevel = authLevel;
     }
 
-    public Long getId() {return id;}
+    public long getId() {return id;}
 
     public void setId(long id) {this.id = id;}
 

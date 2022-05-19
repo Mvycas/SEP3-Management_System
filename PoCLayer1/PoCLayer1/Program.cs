@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<IEmployeeHttpClient, EmployeeHttpClientImpl>();
+builder.Services.AddScoped<IUserHttpClient, UserHttpClientImpl>();
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthStateProvider>();
 builder.Services.AddAuthorizationCore();
@@ -15,9 +15,11 @@ builder.Services.AddAuthorizationCore();
 // Authorization
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("LoggedIn", a => a.RequireAuthenticatedUser().RequireClaim("IsLoggedIn", "true"));
+    //options.AddPolicy("LoggedIn", a => a.RequireAuthenticatedUser().RequireClaim("IsLoggedIn", "true"));
    // options.AddPolicy("Manager", policy => policy.RequireClaim("IsManager", "true"));
-    options.AddPolicy("Employee", policy => policy.RequireClaim("IsEmployee", "true"));
+    options.AddPolicy("Employee", policy => policy.RequireClaim("isEmployee", "true"));
+    options.AddPolicy("Manager", policy => policy.RequireClaim("isManager", "true"));
+    options.AddPolicy("Admin", policy => policy.RequireClaim("isAdmin", "true"));
 });
 
 var app = builder.Build();

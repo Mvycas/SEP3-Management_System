@@ -1,10 +1,13 @@
 package group3.validation;
 
 import group3.model.Employee;
+import group3.model.User;
 
 import java.io.IOException;
 
 public interface IValidateUser
 {
-    public boolean validateUser(Object object) throws IOException, ClassNotFoundException;
+    public boolean userExists(User user) throws IOException, ClassNotFoundException;
+    public String userAuthState(User user) throws IOException, ClassNotFoundException;
+    public User userInfo(User user) throws IOException, ClassNotFoundException;
 }

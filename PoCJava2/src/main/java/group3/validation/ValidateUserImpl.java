@@ -2,6 +2,7 @@ package group3.validation;
 
 import group3.InitializeConnection;
 import group3.model.Employee;
+import group3.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,35 +16,52 @@ public class ValidateUserImpl implements IValidateUser {
     InitializeConnection initializeConnection;
 
     @Override
-    public boolean validateUser(Object object) throws IOException, ClassNotFoundException
-    {
+    public boolean userExists(User user) throws IOException, ClassNotFoundException {
 
-        if(object instanceof Employee)
-        {
-            System.out.println("Is Employee" + ((Employee) object).getLogin());
-            Employee employee = (Employee) object;
+        List<User> allUsers = (List<User>) initializeConnection.sendTransferObject("all", user);
 
-            List<Employee> allEmployees = (List<Employee>) initializeConnection.getReceivedObject("all", object);
+        System.out.println("Received all employees");
+        //checks if password and username match in the dbs
+        boolean match = allUsers.stream().anyMatch(o -> o.getUsername().equals(user.getUsername()) && o.getPassword().equals(user.getPassword()));
 
-            boolean match = allEmployees.stream().filter(o -> o.getLogin().equals(((Employee) object).getLogin()) && o.getPassword().equals(((Employee) object).getPassword())).findFirst().isPresent();
-
-            if (match)
-            {
-                System.out.println("Does contain login and password returning true...");
-                return true;
-            }
-            else
-            {
-                System.out.println("Does not contain, returning false");
-                return false;
-            }
-        }
-        else
-        {
-            System.out.println("Returning false either way");
+        System.out.println("Does match? " + match);
+        if (match) {
+            System.out.println("Does contain login and password returning true...");
+            return true;
+        } else {
+            System.out.println("Does not contain, returning false");
             return false;
         }
-
     }
 
+    @Override
+    public String userAuthState(User user) throws IOException, ClassNotFoundException {
+
+        List<User> users = (List<User>) initializeConnection.sendTransferObject("all", user);
+
+        for (int i = 0; i < users.size(); i++) {
+
+            if (users.get(i).getUsername().equals(user.getUsername()))
+            {
+                return users.get(i).getAuthLevel();
+            }
+        }
+        return "Did not pass the for loop, no account found";
+    }
+
+    @Override
+    public User userInfo(User user) throws IOException, ClassNotFoundException {
+
+        List<User> users = (List<User>) initializeConnection.sendTransferObject("all", user);
+
+        for (int i = 0; i < users.size(); i++) {
+
+            if (users.get(i).getUsername().equals(user.getUsername()) && users.get(i).getPassword().equals(user.getPassword()))
+            {
+                System.out.println("Sending back " + users.get(i).getAuthLevel());
+                return users.get(i);
+            }
+        }
+        return null;
+    }
 }

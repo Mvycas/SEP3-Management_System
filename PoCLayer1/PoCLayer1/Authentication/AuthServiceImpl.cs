@@ -1,5 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
+using System.Threading.Channels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 using PoCLayer1.Http;
 using PoCLayer1.Model;
@@ -9,12 +11,12 @@ namespace PoCLayer1.Authentication;
 public class AuthServiceImpl : IAuthService
 {
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!; // assigning to null! to suppress null warning.
-    private readonly IEmployeeHttpClient employeeHttpClient;
+    private readonly IUserHttpClient userHttpClient;
     private readonly IJSRuntime jsRuntime;
 
-    public AuthServiceImpl(IEmployeeHttpClient employeeHttpClient, IJSRuntime jsRuntime)
+    public AuthServiceImpl(IUserHttpClient userHttpClient, IJSRuntime jsRuntime)
     {
-        this.employeeHttpClient = employeeHttpClient;
+        this.userHttpClient = userHttpClient;
         this.jsRuntime = jsRuntime;
     }
 
@@ -22,71 +24,70 @@ public class AuthServiceImpl : IAuthService
     {
         Console.WriteLine("In LoginAsync");
 
-        Employee newEmployee = new Employee(username, password);
-        
-        //bool response = await employeeHttpClient.CheckIfValidLogInAsync(new Employee(default, username, password));
-        
-        //Console.WriteLine("statement: " + response);
-         if (await employeeHttpClient.CheckIfEmployeeExistsAsync(newEmployee))
-         {
-             Console.WriteLine("Valid info");
-             await CacheUserAsync(newEmployee!); // Cache the user object in the browser 
-        
-        
-             ClaimsPrincipal principal = CreateClaimsPrincipal(newEmployee); // convert user object to ClaimsPrincipal
-        
-             OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
-         }
-         else
-         {
-             Console.WriteLine("Wrong Info");
-         }
+        User user = new User(username, password);
+        Console.WriteLine("User made: " + user.id + " " + user.username + "     " + user);
+
+        User userClaim = await userHttpClient.GetUser(user);
+
+        if (userClaim.authLevel.Equals("Employee") || userClaim.authLevel.Equals("Manager") || userClaim.authLevel.Equals("Admin")) 
+            {
+                Console.WriteLine("Valid info");
+                 await CacheUserAsync(user!); // Cache the user object in the browser 
+                 Console.WriteLine("Cached, creating claim...");
+                 ClaimsPrincipal principal = CreateClaimsPrincipal(userClaim); // convert user object to ClaimsPrincipal
+                 Console.WriteLine("Claim created, incoking change...");
+                 OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
+            }
+            
     }
     
     public async Task<ClaimsPrincipal> GetAuthAsync() // this method is called by the authentication framework, whenever user credentials are reguired
     {
-        Employee? employee=  await GetUserFromCacheAsync(); // retrieve cached user, if any
+        User? user=  await GetUserFromCacheAsync(); // retrieve cached user, if any
 
-        ClaimsPrincipal principal = CreateClaimsPrincipal(employee); // create ClaimsPrincipal
+        ClaimsPrincipal principal = CreateClaimsPrincipal(user); // create ClaimsPrincipal
 
         return principal;
     }
     
-    private async Task<Employee?> GetUserFromCacheAsync()
+    private async Task<User?> GetUserFromCacheAsync()
     {
         string userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
         if (string.IsNullOrEmpty(userAsJson)) return null;
-        Employee employee = JsonSerializer.Deserialize<Employee>(userAsJson)!;
-        return employee;
+        User user = JsonSerializer.Deserialize<User>(userAsJson)!;
+        return user;
     }
     
-    private ClaimsPrincipal CreateClaimsPrincipal(Employee? employee)
+    private ClaimsPrincipal CreateClaimsPrincipal(User? user)
     {
-        if (employee != null)
+        if (user != null)
         {
-            ClaimsIdentity identity = ConvertUserToClaimsIdentity(employee);
+            Console.WriteLine("user not null, converting to claim identity...");
+            ClaimsIdentity identity = ConvertUserToClaimsIdentity(user);
             return new ClaimsPrincipal(identity);
         }
 
         return new ClaimsPrincipal();
     }
     
-    private ClaimsIdentity ConvertUserToClaimsIdentity(Employee employee)
+    private ClaimsIdentity ConvertUserToClaimsIdentity(User user)
     {
         // here we take the information of the User object and convert to Claims
-        // this is (probably) the only method, which needs modifying for your own user type
+        Console.WriteLine("calims..." + user.phoneNumber);
         List<Claim> claims = new()
         {
-            new Claim(ClaimTypes.Name, employee.login),
-            new Claim("IsEmployee", IsEmployee(employee))
+            new Claim(ClaimTypes.Name, user.username),
+            new Claim("isAdmin", IsAdmin(user.authLevel)),
+            new Claim("isManager", IsManager(user.authLevel)),
+            new Claim("isEmployee", IsEmployee(user.authLevel))
         };
 
         return new ClaimsIdentity(claims, "apiauth_type");
     }
     
-    private async Task CacheUserAsync(Employee employee)
+    private async Task CacheUserAsync(User user)
     {
-        string serialisedData = JsonSerializer.Serialize(employee);
+        string serialisedData = JsonSerializer.Serialize(user);
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
     }
     
@@ -95,12 +96,30 @@ public class AuthServiceImpl : IAuthService
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
     }
 
-    private string IsEmployee(Employee employee)
-    {
-        //HERE WE NEED TO WRITE THE LOGIC, AND LOGIC BEHIND IS THAT WE CHECK IF USER OBJECT IS EMPLOYEE OR ETC... (IN THIS CASE WE CHECK IF EMPLOYEE IS EMPLOYEE)
-        return "true";
-        
-        
+     private string IsEmployee(String authLevel)
+     {
+         if (authLevel.Equals("Employee"))
+         {
+             return "true";
+         }
+         return "false";
+     }
      
-    }
+     private string IsAdmin(String authLevel)
+     {
+         if (authLevel.Equals("Admin"))
+         {
+             return "true";
+         }
+         return "false";
+     }
+     
+     private string IsManager(String authLevel)
+     {
+         if (authLevel.Equals("Manager"))
+         {
+             return "true";
+         }
+         return "false";
+     }
 }

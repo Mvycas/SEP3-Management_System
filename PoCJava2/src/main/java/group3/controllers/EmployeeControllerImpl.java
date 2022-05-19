@@ -1,7 +1,7 @@
 package group3.controllers;
 
 import group3.InitializeConnection;
-import group3.model.Employee;
+import group3.model.User;
 import group3.validation.IValidateUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,38 +22,38 @@ public class EmployeeControllerImpl implements IEmployeeController {
     IValidateUser validateUser;
 
 
-    //get employees
-    @GetMapping("/employees")
-    public List<Employee> getAllEmployees() throws IOException, ClassNotFoundException {
+    //get users
+    @GetMapping("/users")
+    public List<User> getAllUsers() throws IOException, ClassNotFoundException {
         System.out.println("Getting All");
-        Employee employee = new Employee(99999, "default", "default");
-        List<Employee> allEmployees = (List<Employee>) initializeConnection.getReceivedObject("all", employee);
-        return allEmployees;
+        User user = new User();
+        List<User> allUsers = (List<User>) initializeConnection.sendTransferObject("all", user);
+        return allUsers;
     }
 
 
-    //get employee by id
-    @GetMapping("/employees/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId) {
+    //get user by id
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId) {
 //        Employee employee = EmployeeValidationImpl;
 //        return ResponseEntity.ok().body(employee);
         return null;
     }
 
-    //save employee
-    @PostMapping("employees")
-    public Employee createEmployee(@RequestBody Employee employee) throws IOException, InterruptedException, ClassNotFoundException { //Request Body Deserializes
+    //save user
+    @PostMapping("users")
+    public User createUser(@RequestBody User user) throws IOException, InterruptedException, ClassNotFoundException { //Request Body Deserializes
 
         System.out.println("Posting...");
-        Employee newemployee = (Employee) initializeConnection.getReceivedObject("post", employee); //should check this in another place maybe instead
-        System.out.println(newemployee.getUsername());
+        User newUser = (User) initializeConnection.sendTransferObject("post", user); //should check this in another place maybe instead
+        System.out.println(newUser.getUsername());
         //System.out.println("Sent object employee: " + employee.getId() + " " + employee.getLogin() + " " + employee.getPassword());
-        return newemployee;
+        return newUser;
     }
 
-    //update employee
-    @PutMapping("/employees/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId, @RequestBody Employee employeeDetails) {
+    //update user
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @RequestBody User userDetails) {
 
 //        Employee employee = employeeRepository.findById(employeeId)
 //                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
@@ -66,9 +66,9 @@ public class EmployeeControllerImpl implements IEmployeeController {
         return null;
     }
 
-    //delete employee
-    @DeleteMapping("employees/{id}")
-    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId) {
+    //delete user
+    @DeleteMapping("users/{id}")
+    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) {
 //        Employee employee = employeeRepository.findById(employeeId)
 //                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
 //
@@ -80,10 +80,10 @@ public class EmployeeControllerImpl implements IEmployeeController {
         return null;
     }
 
-    @PostMapping("check_employee")
-    public boolean checkEmployee(@RequestBody Employee employee) throws IOException, ClassNotFoundException
+    @PostMapping("user_exists")
+    public boolean checkIfUserExists(@RequestBody User user) throws IOException, ClassNotFoundException
     {
-        if (validateUser.validateUser(employee))
+        if (validateUser.userExists(user))
         {
             System.out.println("Returning true from API");
             return true;
@@ -93,5 +93,17 @@ public class EmployeeControllerImpl implements IEmployeeController {
             System.out.println("Returning false from API");
             return false;
         }
+    }
+
+    @PostMapping("user_auth")
+    public String checkUserAuthState(@RequestBody User user) throws IOException, ClassNotFoundException
+    {
+        return validateUser.userAuthState(user);
+    }
+
+    @PostMapping("user")
+    public User getUser(@RequestBody User user) throws IOException, ClassNotFoundException
+    {
+        return validateUser.userInfo(user);
     }
 }

@@ -2,18 +2,24 @@
 
 public class Employee : User
 {
+    public Employee()
+    {
+    }
+
+    public Employee(string username, string password) : base(username, password)
+    {
+    }
 
     public Employee(long id, string username, string password, string firstName, string lastName,
         string email, string phoneNumber, string authLevel, string address, double hours) 
         : base(id, username, password, firstName, lastName, email, phoneNumber, authLevel)
     {
-        Address = address;
-        Hours = hours;
-        AuthLevel = "Employee";
+        this.address = address;
+        this.hours = hours;
     }
 
 
-    public string Address { get; set; }
-    public double Hours { get; set; }
+    public string address { get; set; }
+    public double hours { get; set; }
     
 }

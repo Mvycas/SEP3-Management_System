@@ -9,8 +9,6 @@
 <AuthorizeView>
     <NotAuthorized>
         <h3>Login</h3>
-
-
         <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
             <div class="form-group card-body">
                 <h3>Post:</h3>
@@ -40,7 +38,9 @@
     <Authorized><h1> Logged in no need to log in again</h1></Authorized>
 </AuthorizeView>
 
-    <AuthorizeView Policy="Employee">Employee view</AuthorizeView>
+<AuthorizeView Policy="Employee"><h1>Employee view</h1></AuthorizeView>
+<AuthorizeView Policy="Admin"><h1>Admin view</h1></AuthorizeView>
+<AuthorizeView Policy="Manager"><h1>Manager view</h1></AuthorizeView>
 
 
 @code {

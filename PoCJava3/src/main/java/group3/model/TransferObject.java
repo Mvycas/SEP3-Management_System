@@ -2,11 +2,11 @@ package group3.model;
 
 import java.io.Serializable;
 
-public class ObjectTransfer implements Serializable {
+public class TransferObject implements Serializable {
     private Object object;
     private String command;
 
-    public ObjectTransfer(Object object, String command) {
+    public TransferObject(Object object, String command) {
         this.object = object;
         this.command = command;
     }

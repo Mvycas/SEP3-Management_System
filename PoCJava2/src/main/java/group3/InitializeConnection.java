@@ -42,7 +42,7 @@ public class InitializeConnection
 
     }
 
-    public Object getReceivedObject(String command, Object object) throws IOException, ClassNotFoundException
+    public Object sendTransferObject(String command, Object object) throws IOException, ClassNotFoundException
     {
 
         System.out.println("Sent Command: " + command);

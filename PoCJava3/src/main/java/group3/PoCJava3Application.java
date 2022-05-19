@@ -1,6 +1,6 @@
 package group3;
 
-import group3.repository.IEmployeeRepository;
+import group3.repository.IUserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class PoCJava3Application implements CommandLineRunner {
 
     @Resource
-    IEmployeeRepository employeeRepository;
+    IUserRepository employeeRepository;
 
     public static void main(String[] args) throws IOException
     {
