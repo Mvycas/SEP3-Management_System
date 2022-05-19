@@ -1,25 +1,23 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using PoCLayer1.Authentication;
-using PoCLayer1.Data;
 using PoCLayer1.Http;
-using PoCLayer1.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<IEmployeeHttpClient, EmployeeHttpClientImpl>();
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthStateProvider>();
+builder.Services.AddAuthorizationCore();
 
 // Authorization
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("LoggedIn", a => a.RequireAuthenticatedUser().RequireClaim("IsLoggedIn", "true"));
+   // options.AddPolicy("Manager", policy => policy.RequireClaim("IsManager", "true"));
+    options.AddPolicy("Employee", policy => policy.RequireClaim("IsEmployee", "true"));
 });
 
 var app = builder.Build();
@@ -43,6 +41,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

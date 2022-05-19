@@ -60,7 +60,7 @@ public class AuthServiceImpl : IAuthService
         return employee;
     }
     
-    private static ClaimsPrincipal CreateClaimsPrincipal(Employee? employee)
+    private ClaimsPrincipal CreateClaimsPrincipal(Employee? employee)
     {
         if (employee != null)
         {
@@ -71,13 +71,14 @@ public class AuthServiceImpl : IAuthService
         return new ClaimsPrincipal();
     }
     
-    private static ClaimsIdentity ConvertUserToClaimsIdentity(Employee employee)
+    private ClaimsIdentity ConvertUserToClaimsIdentity(Employee employee)
     {
         // here we take the information of the User object and convert to Claims
         // this is (probably) the only method, which needs modifying for your own user type
         List<Claim> claims = new()
         {
-            new Claim(ClaimTypes.Name, employee.login)
+            new Claim(ClaimTypes.Name, employee.login),
+            new Claim("IsEmployee", IsEmployee(employee))
         };
 
         return new ClaimsIdentity(claims, "apiauth_type");
@@ -92,5 +93,14 @@ public class AuthServiceImpl : IAuthService
     private async Task ClearUserFromCacheAsync()
     {
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
+    }
+
+    private string IsEmployee(Employee employee)
+    {
+        //HERE WE NEED TO WRITE THE LOGIC, AND LOGIC BEHIND IS THAT WE CHECK IF USER OBJECT IS EMPLOYEE OR ETC... (IN THIS CASE WE CHECK IF EMPLOYEE IS EMPLOYEE)
+        return "true";
+        
+        
+     
     }
 }

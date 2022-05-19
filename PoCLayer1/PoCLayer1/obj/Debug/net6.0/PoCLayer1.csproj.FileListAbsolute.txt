@@ -52,3 +52,30 @@ C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\De
 C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\ref\PoCLayer1.dll
 C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.pdb
 C:\SEP3 Code Management System\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.genruntimeconfig.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\appsettings.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.staticwebassets.runtime.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.exe
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.deps.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.runtimeconfig.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.dll
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\ref\PoCLayer1.dll
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\bin\Debug\net6.0\PoCLayer1.pdb
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.csproj.AssemblyReference.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.AssemblyInfoInputs.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.AssemblyInfo.cs
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.csproj.CoreCompileInputs.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.RazorAssemblyInfo.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.RazorAssemblyInfo.cs
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\bundle\PoCLayer1.styles.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\projectbundle\PoCLayer1.bundle.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.dll
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\ref\PoCLayer1.dll
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.pdb
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.genruntimeconfig.cache
