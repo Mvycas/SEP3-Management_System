@@ -20,12 +20,29 @@
             </NavLink>
         </div>
         <AuthorizeView Policy="Admin">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddManager">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Create manager
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddManager">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Create manager
+                </NavLink>
+            </div>
         </AuthorizeView>
+        
+        <AuthorizeView Policy="Admin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddEmployee">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Create employee
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Policy="Manager">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddEmployee">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Create employee
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
     </nav>
 </div>
 
