@@ -1,4 +1,6 @@
-﻿@page "/Login"
+﻿<AuthorizeView>
+    <NotAuthorized>
+@page "/Login"
 @page "/"
 
 @inject NavigationManager navMgr
@@ -6,8 +8,7 @@
 @inject IAuthService authService
 
 
-<AuthorizeView>
-    <NotAuthorized>
+
         <h3>Login</h3>
         <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
             <div class="form-group card-body">
