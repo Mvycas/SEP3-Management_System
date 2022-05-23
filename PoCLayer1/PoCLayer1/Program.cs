@@ -9,6 +9,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IUserHttpClient, UserHttpClientImpl>();
 builder.Services.AddScoped<IEmployeeHttpClient, EmployeeHttpClientImpl>();
+builder.Services.AddScoped<IShiftHttpClient, ShiftHttpClientImpl>();
+
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthStateProvider>();
 builder.Services.AddAuthorizationCore();
