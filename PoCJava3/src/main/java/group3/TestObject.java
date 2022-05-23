@@ -21,33 +21,34 @@ public class TestObject {
 
         if (object instanceof TransferObject) {
 
+
             request = ((TransferObject) object).getObject();
             command = ((TransferObject) object).getCommand();
             System.out.println("Command: " + command);
 
             if (request instanceof User userObj) {
 
-                switch (command) {
-                    case "post" -> userRepository.save(userObj);
-                    case "all" -> {
-                        System.out.println("Finding All...");
-                        request = userRepository.findAll();
-                    }
-                }
-            }
-            if (request instanceof Employee employeeObj) {
+                if (request instanceof Employee employeeObj) {
 
-                switch (command) {
-                    case "post" -> employeeRepository.save(employeeObj);
-                    case "all" -> {
-                        System.out.println("Finding All...");
-                        request = employeeRepository.findAll();
+                    switch (command) {
+                        case "post" -> employeeRepository.save(employeeObj);
+                        case "all" -> {
+                            System.out.println("Finding All...");
+                            request = employeeRepository.findAll();
+                        }
                     }
-                }
+                } else
+                    switch (command) {
+                        case "post" -> userRepository.save(userObj);
+                        case "all" -> {
+                            System.out.println("Finding All...");
+                            request = userRepository.findAll();
+                        }
+                    }
             }
         }
         return new TransferObject(request, command);
-    }
 }
+    }
 
 
