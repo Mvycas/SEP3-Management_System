@@ -1,4 +1,4 @@
-﻿<AuthorizeView Policy="Admin">
+﻿<AuthorizeView Roles="Admin">
 @page "/AddManager"
 @using PoCLayer1.Model
 @using PoCLayer1.Http
@@ -99,7 +99,7 @@
 
     private async Task addManager()
     {
-        User newUser = new User(default, username, password, first_name, last_name, email, phone_number, "manager");
+        User newUser = new User(default, username, password, first_name, last_name, email, phone_number, "Manager");
         Console.WriteLine("HOME: " + newUser.id);
         returnedUserFromAdd = await _userHttpClient.AddUserAsync(newUser);
         navMgr.NavigateTo("/Home");

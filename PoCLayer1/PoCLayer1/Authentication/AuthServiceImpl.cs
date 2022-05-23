@@ -73,13 +73,13 @@ public class AuthServiceImpl : IAuthService
     private ClaimsIdentity ConvertUserToClaimsIdentity(User user)
     {
         // here we take the information of the User object and convert to Claims
-        Console.WriteLine("calims..." + user.phoneNumber);
+        Console.WriteLine("claims..." + user.phoneNumber);
         List<Claim> claims = new()
         {
             new Claim(ClaimTypes.Name, user.username),
-            new Claim("isAdmin", IsAdmin(user.authLevel)),
-            new Claim("isManager", IsManager(user.authLevel)),
-            new Claim("isEmployee", IsEmployee(user.authLevel))
+            new Claim(ClaimTypes.Role, IsAdmin(user.authLevel)),
+            new Claim(ClaimTypes.Role, IsManager(user.authLevel)),
+            new Claim(ClaimTypes.Role, IsEmployee(user.authLevel))
         };
 
         return new ClaimsIdentity(claims, "apiauth_type");
@@ -100,7 +100,7 @@ public class AuthServiceImpl : IAuthService
      {
          if (authLevel.Equals("Employee"))
          {
-             return "true";
+             return "Employee";
          }
          return "false";
      }
@@ -109,16 +109,17 @@ public class AuthServiceImpl : IAuthService
      {
          if (authLevel.Equals("Admin"))
          {
-             return "true";
+             return "Admin";
          }
          return "false";
+         
      }
      
      private string IsManager(String authLevel)
      {
          if (authLevel.Equals("Manager"))
          {
-             return "true";
+             return "Manager";
          }
          return "false";
      }

@@ -15,7 +15,9 @@ public class Employee extends User implements Serializable {
 
     public Employee() {}
 
-    public Employee(String address, double hours) {
+    public Employee(long id, String username, String password, String firstName, String lastName,
+                    String email, String phoneNumber, String authLevel, String address, double hours) {
+        super(id, username, password, firstName, lastName, email, phoneNumber, authLevel);
         this.address = address;
         this.hours = hours;
     }

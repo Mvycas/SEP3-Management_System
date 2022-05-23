@@ -1,7 +1,6 @@
 package group3.validation;
 
 import group3.InitializeConnection;
-import group3.model.Employee;
 import group3.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -54,12 +53,11 @@ public class ValidateUserImpl implements IValidateUser {
 
         List<User> users = (List<User>) initializeConnection.sendTransferObject("all", user);
 
-        for (int i = 0; i < users.size(); i++) {
+        for (User value : users) {
 
-            if (users.get(i).getUsername().equals(user.getUsername()) && users.get(i).getPassword().equals(user.getPassword()))
-            {
-                System.out.println("Sending back " + users.get(i).getAuthLevel());
-                return users.get(i);
+            if (value.getUsername().equals(user.getUsername()) && value.getPassword().equals(user.getPassword())) {
+                System.out.println("Sending back " + value.getAuthLevel());
+                return value;
             }
         }
         return null;
