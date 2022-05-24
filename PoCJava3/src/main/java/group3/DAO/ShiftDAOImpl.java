@@ -20,6 +20,6 @@ public class ShiftDAOImpl implements IShiftDAO{
 
     @Override
     public Shift addShift(Shift shift) {
-        return this.shiftRepository.save(shift);
+        return shiftRepository.save(shift);
     }
 }

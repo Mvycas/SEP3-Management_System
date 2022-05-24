@@ -2,13 +2,8 @@ package group3.controllers;
 
 import group3.InitializeConnection;
 import group3.model.Shift;
-import group3.model.User;
-import group3.validation.IValidateUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,15 +19,14 @@ public class ShiftControllerImpl implements IShiftController {
     public List<Shift> getAllShifts() throws IOException, ClassNotFoundException {
         System.out.println("Getting All");
         Shift shift = new Shift();
-        List<Shift> allShifts = (List<Shift>) initializeConnection.sendTransferObject("all", shift);
-        return allShifts;
+        return (List<Shift>) initializeConnection.sendTransferObject("all", shift);
     }
 
     @PostMapping("shift")
-    public Shift addShift(Shift shift) throws IOException, InterruptedException, ClassNotFoundException {
+    public Shift addShift(@RequestBody Shift shift) throws IOException, InterruptedException, ClassNotFoundException {
         System.out.println("Posting...");
         Shift newShift = (Shift) initializeConnection.sendTransferObject("post", shift);
-        System.out.println(shift.getDescription());
+        System.out.println(shift.getDescription() + " layer2 shift controller impl:  " + shift.getAddress());
         return newShift;
     }
 }
