@@ -95,10 +95,11 @@
 
     private async Task addShift()
     {
+        Console.WriteLine("IS PRINTING? " + id + " " + description + " " + address + " " + time + " " + date + " " + hands_req );
         Shift newShift = new Shift(default, description, address, time, date, hands_req);
-        Console.WriteLine("HOME: " + newShift.id);
+        Console.WriteLine("HOME: " + newShift.id + " " + newShift.description);
         returnedShiftFromAdd = await _shiftHttpClient.AddShiftAsync(newShift);
-        navMgr.NavigateTo("/Home");
+        //navMgr.NavigateTo("/Home");
     }
 
     }

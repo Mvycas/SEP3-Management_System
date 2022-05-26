@@ -12,10 +12,10 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
     {
         using HttpClient client = new();
 
-        string userToJson = JsonSerializer.Serialize(employee);
+        string employeeToJson = JsonSerializer.Serialize(employee);
         
         
-        StringContent content = new(userToJson, Encoding.UTF8, "application/json");
+        StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
         
 
         HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/employees", content);

@@ -1,0 +1,49 @@
+﻿@page "/Shifts"
+@using PoCLayer1.Model
+@using PoCLayer1.Http
+@inject IShiftHttpClient _iShiftHttpClient
+
+<h3>Shifts: </h3>
+
+@if (shifts == null)
+
+{
+    <p>
+    <em>Loading...</em>
+        </p>
+}
+else if (!shifts.Any())
+{
+    <p>
+    <em>No shifts have been added.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Shift ID</th> <th>description</th> <th>date</th> <th>time</th> <th>Hands required</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in shifts)
+        {
+            <tr>
+                <td>@item.id</td> <td>@item.description</td> <td>@item.date</td> <td>@item.time</td> <td>@item.handsReq</td>
+            </tr>
+        }
+        </tbody>
+    </table> 
+}
+
+@code {
+    
+    private ICollection<Shift> shifts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        shifts = await _iShiftHttpClient.GetAllShiftsAsync();
+    }
+    
+}

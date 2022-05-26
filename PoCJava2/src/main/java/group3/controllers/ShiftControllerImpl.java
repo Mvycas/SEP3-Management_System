@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -28,5 +29,10 @@ public class ShiftControllerImpl implements IShiftController {
         Shift newShift = (Shift) initializeConnection.sendTransferObject("post", shift);
         System.out.println(shift.getDescription() + " layer2 shift controller impl:  " + shift.getAddress());
         return newShift;
+    }
+
+    @Override
+    public Map<String, Boolean> deleteShift(Long userId) {
+        return null;
     }
 }

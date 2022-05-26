@@ -34,7 +34,8 @@ public class ShiftHttpClientImpl : IShiftHttpClient
         
         StringContent content = new(shiftToJson, Encoding.UTF8, "application/json");
         
-
+        Console.WriteLine("TESTING SHIFT HTTP CLIENT IMPL LAYER 1: " + shift.address + " content: " + content);
+        
         HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/shift", content);
         
         string responseContent = await response.Content.ReadAsStringAsync();
@@ -50,6 +51,11 @@ public class ShiftHttpClientImpl : IShiftHttpClient
         })!;
 
         return returned;
+    }
+
+    public Task<Shift> DeleteShiftByIdAsync(long id)
+    {
+        throw new NotImplementedException();
     }
 }
 
