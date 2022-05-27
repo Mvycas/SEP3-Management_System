@@ -53,9 +53,25 @@ public class ShiftHttpClientImpl : IShiftHttpClient
         return returned;
     }
 
-    public Task<Shift> DeleteShiftByIdAsync(long id)
+    public async Task<Shift> DeleteShiftByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        using HttpClient client = new HttpClient();
+        
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/shifts/{id}");
+        
+        HttpResponseMessage response = await client.DeleteAsync(builder.Uri);
+        
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+        
+        Shift returned = JsonSerializer.Deserialize<Shift>(responseContent, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+  
+        return returned;
     }
 }
 

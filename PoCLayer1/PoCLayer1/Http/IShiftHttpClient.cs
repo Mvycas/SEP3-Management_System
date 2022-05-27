@@ -6,4 +6,5 @@ public interface IShiftHttpClient
 {
     public Task<ICollection<Shift>> GetAllShiftsAsync();
     public Task<Shift> AddShiftAsync(Shift shift);
+    public Task<Shift> DeleteShiftByIdAsync(long id);
 }

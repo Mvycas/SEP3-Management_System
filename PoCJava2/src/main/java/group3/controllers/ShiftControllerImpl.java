@@ -3,6 +3,8 @@ package group3.controllers;
 import group3.InitializeConnection;
 import group3.model.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -31,8 +33,10 @@ public class ShiftControllerImpl implements IShiftController {
         return newShift;
     }
 
-    @Override
-    public Map<String, Boolean> deleteShift(Long userId) {
-        return null;
+    @DeleteMapping("/shifts/{id}")
+    public Shift deleteShift(@PathVariable("id") Long shiftId) throws IOException, ClassNotFoundException {
+        System.out.println("Deleting...");
+        Shift shift = (Shift) initializeConnection.sendTransferObject("delete", new Shift(shiftId, " ", " ", " ", " ", 0));
+        return shift;
     }
 }

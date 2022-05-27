@@ -23,7 +23,7 @@ else
     <table class="table">
         <thead>
         <tr>
-            <th>Shift ID</th> <th>description</th> <th>date</th> <th>time</th> <th>Hands required</th>
+            <th>Shift ID</th> <th>description</th> <th>date</th> <th>time</th> <th>Hands required</th> <th>Remove</th>
         </tr>
         </thead>
         <tbody>
@@ -31,19 +31,44 @@ else
         {
             <tr>
                 <td>@item.id</td> <td>@item.description</td> <td>@item.date</td> <td>@item.time</td> <td>@item.handsReq</td>
+                <td>
+                                    <label @onclick="@(() => RemoveShift(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                                        &#x2717;
+                                    </label>
+                                </td>
             </tr>
         }
         </tbody>
     </table> 
 }
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
 
 @code {
     
     private ICollection<Shift> shifts;
+    private string errorLabel;
 
     protected override async Task OnInitializedAsync()
     {
         shifts = await _iShiftHttpClient.GetAllShiftsAsync();
+    }
+    
+    private async Task RemoveShift(long id)
+    {
+        errorLabel = "";
+        try
+        {
+            Shift shiftToRemove = shifts.First(shift => shift.id == id);
+            await _iShiftHttpClient.DeleteShiftByIdAsync(id);
+            shifts.Remove(shiftToRemove);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
     }
     
 }
