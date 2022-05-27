@@ -64,6 +64,10 @@ public class TestObject {
                     System.out.println("Finding All...");
                     request = userRepository.findAll();
                 }
+                case "allEmployees" -> {
+                    System.out.println("Finding All...");
+                    request = employeeRepository.findAll();
+                }
             }
             return new TransferObject(request, command);
         }

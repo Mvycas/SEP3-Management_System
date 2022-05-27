@@ -1,0 +1,75 @@
+﻿@page "/ViewUsers"
+
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject IUserHttpClient _iUserHttpClient
+
+<h3>Users: </h3>
+
+@if (users == null)
+
+{
+    <p>
+    <em>Loading...</em>
+        </p>
+}
+else if (!users.Any())
+{
+    <p>
+    <em>There are no users within the system.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>User ID</th> <th>Username</th> <th>First name</th> <th>Last name</th> <th>Email</th> <th>Phone number</th> <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in users)
+        {
+            <tr>
+                <td>@item.id</td> <td>@item.username</td> <td>@item.firstName</td> <td>@item.lastName</td> <td>@item.email</td> <td>@item.phoneNumber</td>
+                <td>
+                                    <label @onclick="@(() => RemoveUser(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                                        &#x2717;
+                                    </label>
+                                </td>
+            </tr>
+        }
+        </tbody>
+    </table> 
+}
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
+
+@code {
+    
+    private ICollection<User> users;
+    private string errorLabel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _iUserHttpClient.GetAllUsersAsync();
+    }
+    
+    private async Task RemoveUser(long id)
+    {
+        errorLabel = "";
+        try
+        {
+            User userToRemove = users.First(user => user.id == id);
+            await _iUserHttpClient.DeleteUserByIdAsync(id);
+            users.Remove(userToRemove);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+    }
+    
+}

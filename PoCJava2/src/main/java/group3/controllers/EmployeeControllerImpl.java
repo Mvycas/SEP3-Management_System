@@ -2,13 +2,12 @@ package group3.controllers;
 
 import group3.InitializeConnection;
 import group3.model.Employee;
+import group3.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -27,5 +26,13 @@ public class EmployeeControllerImpl implements IEmployeeController {
         Employee newEmployee = (Employee) initializeConnection.sendTransferObject("post", employee); //should check this in another place maybe instead
         System.out.println(newEmployee.getUsername());
         return newEmployee;
+    }
+
+    @GetMapping("/employees")
+    public List<Employee> getAllEmployees() throws IOException, ClassNotFoundException {
+        System.out.println("Getting All employees");
+        Employee employee = new Employee();
+        List<Employee> allEmployees = (List<Employee>) initializeConnection.sendTransferObject("allEmployees", employee);
+        return allEmployees;
     }
 }

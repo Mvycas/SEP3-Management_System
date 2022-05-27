@@ -1,0 +1,55 @@
+﻿@page "/EmployeeData"
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject IEmployeeHttpClient _iEmployeeHttpClient
+
+<h3>Employee data: </h3>
+
+@if (employees == null)
+
+{
+    <p>
+    <em>Loading...</em>
+        </p>
+}
+else if (!employees.Any())
+{
+    <p>
+    <em>There are no employees within the system.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>User ID</th> <th>Username</th> <th>First name</th> <th>Last name</th> <th>Phone number</th> <th>Hours</th> <th>Address:</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in employees)
+        {
+            <tr>
+                <td>@item.id</td> <td>@item.username</td> <td>@item.firstName</td> <td>@item.lastName</td> <td>@item.phoneNumber</td> <td>@item.hours</td> <td>@item.address</td>
+
+            </tr>
+        }
+        </tbody>
+    </table> 
+}
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
+
+@code {
+    
+    private ICollection<Employee> employees;
+    private string errorLabel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await _iEmployeeHttpClient.GetAllEmployeesAsync();
+    }
+
+}
