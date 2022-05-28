@@ -10,6 +10,13 @@ namespace PoCLayer1.Authentication;
 
 public class AuthServiceImpl : IAuthService
 {
+    public async Task LogoutAsync()
+    {
+        await ClearUserFromCacheAsync(); // remove the user object from browser cache
+        ClaimsPrincipal principal = CreateClaimsPrincipal(null); // create a new ClaimsPrincipal with nothing.
+        OnAuthStateChanged?.Invoke(principal); // notify about change in authentication state
+    }
+
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!; // assigning to null! to suppress null warning.
     private readonly IUserHttpClient userHttpClient;
     private readonly IJSRuntime jsRuntime;
@@ -30,14 +37,14 @@ public class AuthServiceImpl : IAuthService
         User userClaim = await userHttpClient.GetUser(user);
 
         if (userClaim.authLevel.Equals("Employee") || userClaim.authLevel.Equals("Manager") || userClaim.authLevel.Equals("Admin")) 
-            {
+        {
                 Console.WriteLine("Valid info");
                  await CacheUserAsync(user!); // Cache the user object in the browser 
                  Console.WriteLine("Cached, creating claim...");
                  ClaimsPrincipal principal = CreateClaimsPrincipal(userClaim); // convert user object to ClaimsPrincipal
                  Console.WriteLine("Claim created, incoking change...");
                  OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
-            }
+        }
             
     }
     

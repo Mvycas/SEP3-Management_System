@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bBiYRlF7qWrjNX4lu5asyynumvqrX4xKxrsiLqhPqEU=",
+  "Hash": "2Q+S4+Am8ISCBHmXIXGdFVveDngtm33TepQJ0CMxYZs=",
   "Source": "PoCLayer1",
   "BasePath": "_content/PoCLayer1",
   "Mode": "Default",
@@ -270,6 +270,57 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\img\\icons8-login-48.png",
+      "SourceId": "PoCLayer1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\",
+      "BasePath": "_content/PoCLayer1",
+      "RelativePath": "img/icons8-login-48.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icons8-login-48.png"
+    },
+    {
+      "Identity": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\img\\icons8-logout-48.png",
+      "SourceId": "PoCLayer1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\",
+      "BasePath": "_content/PoCLayer1",
+      "RelativePath": "img/icons8-logout-48.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icons8-logout-48.png"
+    },
+    {
+      "Identity": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\img\\register.png",
+      "SourceId": "PoCLayer1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\",
+      "BasePath": "_content/PoCLayer1",
+      "RelativePath": "img/register.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\register.png"
     }
   ]
 }
