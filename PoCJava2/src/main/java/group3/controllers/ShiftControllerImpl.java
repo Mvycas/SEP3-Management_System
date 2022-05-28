@@ -26,7 +26,7 @@ public class ShiftControllerImpl implements IShiftController {
     }
 
     @PostMapping("shift")
-    public Shift addShift(@RequestBody Shift shift) throws IOException, InterruptedException, ClassNotFoundException {
+    public Shift addShift(@RequestBody Shift shift) throws IOException, ClassNotFoundException {
         System.out.println("Posting...");
         Shift newShift = (Shift) initializeConnection.sendTransferObject("post", shift);
         System.out.println(shift.getDescription() + " layer2 shift controller impl:  " + shift.getAddress());

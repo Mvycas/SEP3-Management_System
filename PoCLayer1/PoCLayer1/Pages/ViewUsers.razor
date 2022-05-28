@@ -4,6 +4,8 @@
 @using PoCLayer1.Model
 @inject IUserHttpClient _iUserHttpClient
 @inject IEmployeeHttpClient _iEmployeeHttpClient
+@inject NavigationManager navMgr
+
 <h3>Users: </h3>
 
 @if (users == null)
@@ -24,7 +26,7 @@ else
     <table class="table">
         <thead>
         <tr>
-            <th>User ID</th> <th>Username</th> <th>First name</th> <th>Last name</th> <th>Email</th> <th>Phone number</th> <th>Remove</th>
+            <th>User ID</th> <th>Username</th> <th>First name</th> <th>Last name</th> <th>Email</th> <th>Phone number</th> <th>Remove</th> <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -38,19 +40,31 @@ else
                         case "Manager":
                         {
                             <label @onclick="@(() => RemoveUser(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
-                                &#x2717;
+                                &#x2716;
                             </label>
                         } break;
 
                         case "Employee":
-                            {
-                                <label @onclick="@(() => RemoveEmployee(item.id))" style="cursor:pointer; color: red; font-weight: bold">
-                                    &#x2717;
-                                </label>
-                            } break;
+                        {
+                            <label @onclick="@(() => RemoveEmployee(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                                &#x2716;
+                            </label>
+                        } break;
                     }
 
                 </td>
+                <td>
+                    @switch (item.authLevel)
+                                    {
+                                        case "Manager" or "Admin":
+                                        {
+                                            <label @onclick="@(() => EditUser(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
+                                                &#128295;
+                                            </label>
+                                        } break;
+                                    }
+                
+                                </td>
             </tr>
         }
         </tbody>
@@ -104,6 +118,12 @@ else
         {
             errorLabel = e.Message;
         }
+    }
+    
+    private async Task EditUser(long id)
+    {
+        long Id = id;
+        navMgr.NavigateTo($"EditUser/{Id}");
     }
     
     

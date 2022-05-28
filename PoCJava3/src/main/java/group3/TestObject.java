@@ -65,6 +65,11 @@ public class TestObject {
                     System.out.println("Finding All...");
                     request = userRepository.findAll();
                 }
+                case "getUserById" -> {
+                    System.out.println("Getting user by id...");
+                    request = userRepository.findUserById(((User) request).getId());
+                    System.out.println(userRepository.findUserById(((User) request).getId()).getUsername() + " id: " + userRepository.findUserById(((User) request).getId()).getId() + " " + userRepository.findUserById(((User) request).getId()).getFirstName());
+                }
                 case "allEmployees" -> {
                     System.out.println("Finding All...");
                     request = employeeRepository.findAll();
@@ -75,6 +80,9 @@ public class TestObject {
                 }
                 case "deleteEmployee" -> {
                     employeeRepository.delete(new Employee(((Employee) request).getId()));
+                }
+                case "update" -> {
+                    userRepository.save(userObj);
                 }
             }
             return new TransferObject(request, command);

@@ -25,29 +25,32 @@ public class UserDAOImpl implements IUserDAO
     }
 
     @Override
-    public ResponseEntity<User> getUserById(Long userId) throws ResourceNotFoundException
+    public User getUserById(Long userId) throws ResourceNotFoundException
     {
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + userId));
-        return ResponseEntity.ok().body(user);
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with this id" + userId));
+        return user;
     }
 
     @Override
     public User createUser(User user)
     {
-
         return this.userRepository.save(user); //returns entity with id
     }
 
     @Override
-    public ResponseEntity<User> updateUser(Long userId, User userDetails) throws ResourceNotFoundException
+    public ResponseEntity<User> updateUser(Long userId, User user) throws ResourceNotFoundException
     {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + userId));
+        User userToUpdate = userRepository.findById(user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with this id" + user.getId()));
 
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(userDetails.getPassword());
+        userToUpdate.setFirstName(user.getFirstName());
+        userToUpdate.setLastName(user.getUsername());
+        userToUpdate.setPhoneNumber(user.getUsername());
+        userToUpdate.setEmail(user.getUsername());
+        userToUpdate.setPassword(user.getUsername());
 
-        return ResponseEntity.ok(this.userRepository.save(user));
+
+        return ResponseEntity.ok(userRepository.save(userToUpdate));
     }
 
     @Override

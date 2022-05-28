@@ -79,3 +79,4 @@ C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\n
 C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\ref\PoCLayer1.dll
 C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.pdb
 C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.genruntimeconfig.cache
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\EditUser.razor.rz.scp.css

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using PoCLayer1.Model;
 
 namespace PoCLayer1.Http;
@@ -98,18 +99,18 @@ public class UserHttpClientImpl : IUserHttpClient
         return returned;
     }
 
-    public async Task<User> UpdateUserAsync(User user)
+    public async Task<User> UpdateUserAsync(long id, User user)
     {
         using HttpClient client = new HttpClient();
 
         string userToJson = JsonSerializer.Serialize(user);
         
-        StringContent content = new(userToJson, Encoding.UTF8, "application/json-patch");
+        StringContent content = new(userToJson, Encoding.UTF8, "application/json");
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/users/{user.id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/users/{id}");
         
         HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
-        
+
         string responseContent = await response.Content.ReadAsStringAsync();
         
         if (!response.IsSuccessStatusCode) {

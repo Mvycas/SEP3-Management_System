@@ -35,36 +35,32 @@ public class UsersControllerImpl implements IUsersController {
 
     //get user by id
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId) {
-//        Employee employee = EmployeeValidationImpl;
-//        return ResponseEntity.ok().body(employee);
-        return null;
+    public User getUserById(@PathVariable("id") Long userId) throws IOException, ClassNotFoundException {
+        User user = new User();
+        user = (User) initializeConnection.sendTransferObject("getUserById", new User(userId));
+        return user;
+
     }
 
     //save user
     @PostMapping("users")
-    public User createUser(@RequestBody User user) throws IOException, InterruptedException, ClassNotFoundException { //Request Body Deserializes
+    public User createUser(@RequestBody User user) throws IOException, InterruptedException, ClassNotFoundException {
 
         System.out.println("Posting...");
-        User newUser = (User) initializeConnection.sendTransferObject("post", user); //should check this in another place maybe instead
+        User newUser = (User) initializeConnection.sendTransferObject("post", user);
         System.out.println(newUser.getUsername());
-        //System.out.println("Sent object employee: " + employee.getId() + " " + employee.getLogin() + " " + employee.getPassword());
         return newUser;
     }
 
     //update user
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @RequestBody User userDetails) {
+    public User updateUser(@PathVariable("id") Long userId, @RequestBody User user) throws IOException, ClassNotFoundException {
 
-//        Employee employee = employeeRepository.findById(employeeId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
-//
-//        employee.setLogin(employeeDetails.getLogin());
-//        employee.setPassword(employeeDetails.getPassword());
-//
-//        return ResponseEntity.ok(this.employeeRepository.save(employee));
-
-        return null;
+        System.out.println("Updating...");
+        User newUser = (User) initializeConnection.sendTransferObject("update",
+                new User(userId, user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(),
+                        user.getEmail(), user.getPhoneNumber(), user.getAuthLevel()));
+        return newUser;
     }
 
     //delete user

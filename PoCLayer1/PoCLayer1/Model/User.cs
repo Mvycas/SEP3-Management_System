@@ -35,6 +35,14 @@ public class User
         this.id = id;
     }
     
+    public User(string firstName, string lastName, string phoneNumber, string email, string password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+    }
+    
     public long id { get; set; }
     public string username { get; set; }
     public string password { get; set; }

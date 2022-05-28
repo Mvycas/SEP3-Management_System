@@ -40,9 +40,7 @@ public class ClientHandler implements Runnable{
                 objectOutputStream.writeObject(sendBackObject);
             }
         }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
 
