@@ -14,6 +14,11 @@ public class Shift implements Serializable {
     public Shift() {
     }
 
+    public Shift(Long id)
+    {
+        this.id = id;
+    }
+
     public Shift(Long id, String description, String address, String time, String date, int hands_req) {
         this.id = id;
         this.description = description;
