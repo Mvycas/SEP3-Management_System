@@ -61,6 +61,10 @@ public class User implements Serializable {
         this.authLevel = authLevel;
     }
 
+    public User(long id) {
+        this.id = id;
+    }
+
     public long getId() {return id;}
 
     public void setId(long id) {this.id = id;}

@@ -35,4 +35,11 @@ public class EmployeeControllerImpl implements IEmployeeController {
         List<Employee> allEmployees = (List<Employee>) initializeConnection.sendTransferObject("allEmployees", employee);
         return allEmployees;
     }
+
+    @DeleteMapping("/employees/{id}")
+    public Employee deleteEmployee(@PathVariable("id") Long employeeId) throws IOException, ClassNotFoundException {
+        System.out.println("Deleting...");
+        Employee employee = (Employee) initializeConnection.sendTransferObject("deleteEmployee", new Employee(employeeId));
+        return employee;
+    }
 }

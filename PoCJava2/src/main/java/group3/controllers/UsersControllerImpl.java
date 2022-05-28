@@ -1,6 +1,7 @@
 package group3.controllers;
 
 import group3.InitializeConnection;
+import group3.model.Shift;
 import group3.model.User;
 import group3.validation.IValidateUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,16 +69,10 @@ public class UsersControllerImpl implements IUsersController {
 
     //delete user
     @DeleteMapping("users/{id}")
-    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) {
-//        Employee employee = employeeRepository.findById(employeeId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + employeeId));
-//
-//        this.employeeRepository.delete(employee);
-//        Map<String, Boolean> response = new HashMap<>();
-//        response.put("delete", Boolean.TRUE);
-//
-//        return response;
-        return null;
+    public User deleteUser(@PathVariable("id") Long userId) throws IOException, ClassNotFoundException {
+        System.out.println("Deleting...");
+        User user = (User) initializeConnection.sendTransferObject("delete", new User(userId));
+        return user;
     }
 
     @PostMapping("user_exists")

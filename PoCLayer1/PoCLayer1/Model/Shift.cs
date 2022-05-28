@@ -5,6 +5,11 @@ public class Shift
     public Shift()
     {
     }
+    
+    public Shift(long id)
+    {
+        this.id = id;
+    }
 
     public Shift(long id, string description, string address, string time, string date, int handsReq)
     {

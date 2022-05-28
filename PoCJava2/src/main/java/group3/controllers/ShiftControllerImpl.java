@@ -36,7 +36,7 @@ public class ShiftControllerImpl implements IShiftController {
     @DeleteMapping("/shifts/{id}")
     public Shift deleteShift(@PathVariable("id") Long shiftId) throws IOException, ClassNotFoundException {
         System.out.println("Deleting...");
-        Shift shift = (Shift) initializeConnection.sendTransferObject("delete", new Shift(shiftId, " ", " ", " ", " ", 0));
+        Shift shift = (Shift) initializeConnection.sendTransferObject("delete", new Shift(shiftId));
         return shift;
     }
 }

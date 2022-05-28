@@ -4,12 +4,13 @@ import group3.exception.ResourceNotFoundException;
 import group3.model.User;
 import group3.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Controller //Maybe
 public class UserDAOImpl implements IUserDAO
@@ -50,15 +51,12 @@ public class UserDAOImpl implements IUserDAO
     }
 
     @Override
-    public Map<String, Boolean> deleteUser(Long userId) throws ResourceNotFoundException
+    public ResponseEntity<User> deleteUser(Long userId) throws ResourceNotFoundException
     {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + userId));
-
+                .orElseThrow(() -> new ResourceNotFoundException("User was not found with this id" + userId));
         this.userRepository.delete(user);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("delete", Boolean.TRUE);
 
-        return response;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
