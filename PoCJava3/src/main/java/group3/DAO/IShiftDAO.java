@@ -5,7 +5,7 @@ import group3.model.Shift;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Map;
+
 
 public interface IShiftDAO {
     public List<Shift> getAllShifts();

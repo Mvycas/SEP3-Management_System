@@ -1,4 +1,5 @@
 package group3;
+import group3.model.Employee;
 import group3.model.Shift;
 import group3.model.TransferObject;
 import group3.model.User;
@@ -67,6 +68,13 @@ public class TestObject {
                 case "allEmployees" -> {
                     System.out.println("Finding All...");
                     request = employeeRepository.findAll();
+                }
+                case "delete" -> {
+                    System.out.println("Deleting...");
+                    userRepository.delete(userObj);
+                }
+                case "deleteEmployee" -> {
+                    employeeRepository.delete(new Employee(((Employee) request).getId()));
                 }
             }
             return new TransferObject(request, command);

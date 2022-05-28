@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 public class ShiftDAOImpl implements IShiftDAO{
@@ -32,7 +32,7 @@ public class ShiftDAOImpl implements IShiftDAO{
     public ResponseEntity<Shift> deleteShift(Long shiftId) throws ResourceNotFoundException
     {
         Shift shift = shiftRepository.findById(shiftId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with this id" + shiftId));
+                .orElseThrow(() -> new ResourceNotFoundException("Shift not found with this id" + shiftId));
         this.shiftRepository.delete(shift);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

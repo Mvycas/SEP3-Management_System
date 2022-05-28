@@ -5,6 +5,10 @@ public class Employee : User
     public Employee()
     {
     }
+    
+    public Employee(long id) : base(id)
+    {
+    }
 
     public Employee(string username, string password) : base(username, password)
     {

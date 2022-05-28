@@ -60,9 +60,25 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
         return returned;
     }
 
-    public Task<Employee> DeleteEmployeeByIdAsync(long id)
+    public async Task<Employee> DeleteEmployeeByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        using HttpClient client = new HttpClient();
+        
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/employees/{id}");
+        
+        HttpResponseMessage response = await client.DeleteAsync(builder.Uri);
+        
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+        
+        Employee returned = JsonSerializer.Deserialize<Employee>(responseContent, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+  
+        return returned;
     }
 
     public Task<Employee> UpdateEmployeeAsync(Employee employee)

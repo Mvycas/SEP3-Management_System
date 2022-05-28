@@ -31,6 +31,10 @@ public class User
         this.authLevel = authLevel;
     }
     
+    public User(long id) {
+        this.id = id;
+    }
+    
     public long id { get; set; }
     public string username { get; set; }
     public string password { get; set; }

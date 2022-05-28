@@ -11,5 +11,5 @@ import java.util.Map;
 public interface IShiftController {
     public List<Shift> getAllShifts() throws IOException, ClassNotFoundException;
     public Shift addShift(Shift shift) throws IOException, InterruptedException, ClassNotFoundException;
-    public Shift deleteShift(Long userId) throws IOException, ClassNotFoundException;
+    public Shift deleteShift(Long shiftId) throws IOException, ClassNotFoundException;
 }

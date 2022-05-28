@@ -3,7 +3,7 @@
 @using PoCLayer1.Http
 @using PoCLayer1.Model
 @inject IUserHttpClient _iUserHttpClient
-
+@inject IEmployeeHttpClient _iEmployeeHttpClient
 <h3>Users: </h3>
 
 @if (users == null)
@@ -19,7 +19,7 @@ else if (!users.Any())
     <em>There are no users within the system.</em>
     </p>
 }
-else
+else 
 {
     <table class="table">
         <thead>
@@ -33,10 +33,24 @@ else
             <tr>
                 <td>@item.id</td> <td>@item.username</td> <td>@item.firstName</td> <td>@item.lastName</td> <td>@item.email</td> <td>@item.phoneNumber</td>
                 <td>
-                                    <label @onclick="@(() => RemoveUser(item.id))" style="cursor:pointer; color: red; font-weight: bold">
-                                        &#x2717;
-                                    </label>
-                                </td>
+                    @switch (item.authLevel)
+                    {
+                        case "Manager":
+                        {
+                            <label @onclick="@(() => RemoveUser(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
+                                &#x2717;
+                            </label>
+                        } break;
+
+                        case "Employee":
+                            {
+                                <label @onclick="@(() => RemoveEmployee(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                                    &#x2717;
+                                </label>
+                            } break;
+                    }
+
+                </td>
             </tr>
         }
         </tbody>
@@ -48,13 +62,14 @@ else
 }
 
 @code {
-    
+    private ICollection<Employee> employees;
     private ICollection<User> users;
     private string errorLabel;
 
     protected override async Task OnInitializedAsync()
     {
         users = await _iUserHttpClient.GetAllUsersAsync();
+        employees = await _iEmployeeHttpClient.GetAllEmployeesAsync();
     }
     
     private async Task RemoveUser(long id)
@@ -62,9 +77,11 @@ else
         errorLabel = "";
         try
         {
+            
             User userToRemove = users.First(user => user.id == id);
             await _iUserHttpClient.DeleteUserByIdAsync(id);
             users.Remove(userToRemove);
+            await OnInitializedAsync();
         }
         catch (Exception e)
         {
@@ -72,4 +89,23 @@ else
         }
     }
     
+    private async Task RemoveEmployee(long id)
+    {
+        errorLabel = "";
+        try
+        {
+            
+            Employee employeeToRemove = employees.First(employee => employee.id == id);
+            await _iEmployeeHttpClient.DeleteEmployeeByIdAsync(id);
+            employees.Remove(employeeToRemove);
+            await OnInitializedAsync();
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+    }
+    
+    
+
 }
