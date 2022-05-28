@@ -9,33 +9,35 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <AuthorizeView Roles = "Admin">
+        
+        <AuthorizeView>
+            <NotAuthorized>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Login">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Login
+                </NavLink>
+            </div>
+            </NotAuthorized>
+        </AuthorizeView>
+        
+        
+        <AuthorizeView Roles="Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="AddManager">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Create manager
                 </NavLink>
             </div>
         </AuthorizeView>
-        
-        <AuthorizeView Roles = "Admin, Manager">
-            
+
+        <AuthorizeView Roles="Admin, Manager">
+
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="AddEmployee">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Create employee
                 </NavLink>
             </div>
         </AuthorizeView>
-        
+
         <AuthorizeView Roles="Manager, Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="AddShift">
@@ -43,7 +45,7 @@
                 </NavLink>
             </div>
         </AuthorizeView>
-        
+
         <AuthorizeView Roles="Manager, Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Shifts">
@@ -51,7 +53,7 @@
                 </NavLink>
             </div>
         </AuthorizeView>
-        
+
         <AuthorizeView Roles="Manager, Admin, Employee">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="ViewUsers">
@@ -59,7 +61,7 @@
                 </NavLink>
             </div>
         </AuthorizeView>
-        
+
         <AuthorizeView Roles="Manager, Admin, Employee">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EmployeeData">
@@ -67,8 +69,8 @@
                 </NavLink>
             </div>
         </AuthorizeView>
-        
-        
+
+
 
     </nav>
 </div>

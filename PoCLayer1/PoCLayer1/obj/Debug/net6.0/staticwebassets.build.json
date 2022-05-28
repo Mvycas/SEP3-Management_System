@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2Q+S4+Am8ISCBHmXIXGdFVveDngtm33TepQJ0CMxYZs=",
+  "Hash": "9KUe+6GrRtF+xkAscpPXAiCM9AkgRJ3ptDzNnzALRE0=",
   "Source": "PoCLayer1",
   "BasePath": "_content/PoCLayer1",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\PoCLayer1.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\bgr.jpg",
+      "SourceId": "PoCLayer1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\",
+      "BasePath": "_content/PoCLayer1",
+      "RelativePath": "bgr.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\bgr.jpg"
     },
     {
       "Identity": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
