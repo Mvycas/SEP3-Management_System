@@ -12,4 +12,5 @@ IShiftRepository extends JpaRepository<Shift, Long> {
 
     @Query("select u from Shift u where u.id = :#{#shiftId}")
     Shift findShiftById(@Param("shiftId") Long shiftId);
+
 }

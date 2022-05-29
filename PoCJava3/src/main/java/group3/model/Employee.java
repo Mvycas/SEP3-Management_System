@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "employee")
 public class Employee extends User implements Serializable {
@@ -14,12 +14,12 @@ public class Employee extends User implements Serializable {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "enrolledEmployees")
-    private Set<Shift> shifts = new HashSet<>();
+    private List<Shift> shifts = new ArrayList<>();
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "hours")
+    @Column(name = "hours", nullable = false)
     private double hours;
 
 
@@ -53,7 +53,7 @@ public class Employee extends User implements Serializable {
         this.hours = hours;
     }
 
-    public Set<Shift> getShifts() {
+    public List<Shift> getShifts() {
         return shifts;
     }
 }

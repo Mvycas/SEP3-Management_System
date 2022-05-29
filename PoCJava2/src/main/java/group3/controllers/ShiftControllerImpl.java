@@ -45,7 +45,7 @@ public class ShiftControllerImpl implements IShiftController {
         return shift;
     }
 
-    @PutMapping("/{shiftId}/employee/{employeeId}")
+    @PostMapping("{shiftId}/employee/{employeeId}")
     public Shift enrollToShift(@PathVariable Long shiftId, @PathVariable Long employeeId, @RequestBody Shift shift) throws IOException, ClassNotFoundException {
         System.out.println("Enrolling to the shift...");
         return (Shift) initializeConnection.sendTransferObject("EnrollToShift",

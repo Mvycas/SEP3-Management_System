@@ -8,6 +8,8 @@ import group3.repository.IShiftRepository;
 import group3.repository.IUserRepository;
 import group3.util.BeanUtility;
 
+import java.util.Arrays;
+
 public class TestObject {
 
     TransferObject newObj = null;
@@ -61,16 +63,14 @@ public class TestObject {
                 }
 
                 case "EnrollToShift" -> {
+                    Shift shift = shiftRepository.findShiftById(shiftObj.getId());
+                    Employee employee = (Employee) employeeRepository.findEmployeeById(shiftObj.getEmployee_id());
 
-                    System.out.println("Command: " + command + " " + request.toString() + " "
-                            + " " + ((Shift) request).getId() + " " + ((Shift) request).getEmployee_id());
+                    System.out.println(employee.getId() + " " + employee.getHours() + "   SHIFT OBJ : " + shift.getDescription());
 
-                    //CHANGE IT TO SET METHOD LATER: shift.set(shiftObj.getEmployee_id)
-                    Shift shift = new Shift(shiftObj.getId(), shiftObj.getEmployee_id(), shiftObj.getDescription(),
-                            shiftObj.getAddress(), shiftObj.getTime(), shiftObj.getDate(), shiftObj.getHands_req());
-
-                    shift.enrollEmployee(new Employee(shiftObj.getEmployee_id()));
+                    shift.enrollEmployee(employee);
                     shiftRepository.save(shift);
+                    employeeRepository.save(employee);
                 }
             }
             return new TransferObject(request, command);

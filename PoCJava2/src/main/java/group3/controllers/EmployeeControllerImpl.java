@@ -2,6 +2,7 @@ package group3.controllers;
 
 import group3.InitializeConnection;
 import group3.model.Employee;
+import group3.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

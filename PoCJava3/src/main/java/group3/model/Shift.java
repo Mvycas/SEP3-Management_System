@@ -1,7 +1,8 @@
 package group3.model;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,32 +11,32 @@ public class Shift implements Serializable {
 
     private static final long serialVersionUID = -7065683873804696266L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
           name = "employees_enrolled",
-          joinColumns = { @JoinColumn(name = "shift_id", referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")})
-    private Set<Employee> enrolledEmployees = new HashSet<>();
+          joinColumns = {@JoinColumn(name = "shift_id", referencedColumnName = "id", insertable = false, updatable = false)},
+    inverseJoinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id", insertable = false, updatable = false)})
+    private List<Employee> enrolledEmployees = new ArrayList<>();
 
 
     private Long employee_id;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "time")
+    @Column(name = "time", nullable = false)
     private String time;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private String date;
 
-    @Column(name = "hands_req")
+    @Column(name = "hands_req", nullable = false)
     private int hands_req;
 
     public Shift() {
@@ -114,7 +115,8 @@ public class Shift implements Serializable {
     public void setHands_req(int hands_req) {
         this.hands_req = hands_req;
     }
-    public Set<Employee> getEnrolledEmployees() {
+
+    public List<Employee> getEnrolledEmployees() {
         return enrolledEmployees;
     }
 
