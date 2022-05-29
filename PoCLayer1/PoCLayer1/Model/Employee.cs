@@ -2,6 +2,7 @@
 
 public class Employee : User
 {
+    private static long serialVersionUID = 6529685098267757690L;
     public Employee()
     {
     }

@@ -51,11 +51,13 @@ public class ValidateUserImpl implements IValidateUser {
     @Override
     public User userInfo(User user) throws IOException, ClassNotFoundException {
 
+        System.out.println(user.getUsername() + " " + user.getFirstName() + " " + user.getPassword() );
+
         List<User> users = (List<User>) initializeConnection.sendTransferObject("all", user);
 
         for (User value : users) {
 
-            if (value.getUsername().equals(user.getUsername()) && value.getPassword().equals(user.getPassword())) {
+            if (value.getUsername().equalsIgnoreCase(user.getUsername()) && value.getPassword().equals(user.getPassword())) {
                 System.out.println("Sending back " + value.getAuthLevel());
                 return value;
             }

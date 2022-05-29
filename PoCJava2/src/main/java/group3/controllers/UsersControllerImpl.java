@@ -1,16 +1,13 @@
 package group3.controllers;
 
 import group3.InitializeConnection;
-import group3.model.Shift;
 import group3.model.User;
 import group3.validation.IValidateUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")

@@ -2,7 +2,6 @@ package group3.controllers;
 
 import group3.InitializeConnection;
 import group3.model.Employee;
-import group3.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class EmployeeControllerImpl implements IEmployeeController {
 
     //save employee
     @PostMapping("employees")
-    public Employee createEmployee(@RequestBody Employee employee) throws IOException, InterruptedException, ClassNotFoundException { //Request Body Deserializes
+    public Employee createEmployee(@RequestBody Employee employee) throws IOException, ClassNotFoundException { //Request Body Deserializes
 
         System.out.println("Posting...");
         Employee newEmployee = (Employee) initializeConnection.sendTransferObject("post", employee); //should check this in another place maybe instead
@@ -32,14 +31,12 @@ public class EmployeeControllerImpl implements IEmployeeController {
     public List<Employee> getAllEmployees() throws IOException, ClassNotFoundException {
         System.out.println("Getting All employees");
         Employee employee = new Employee();
-        List<Employee> allEmployees = (List<Employee>) initializeConnection.sendTransferObject("allEmployees", employee);
-        return allEmployees;
+        return (List<Employee>) initializeConnection.sendTransferObject("allEmployees", employee);
     }
 
     @DeleteMapping("/employees/{id}")
     public Employee deleteEmployee(@PathVariable("id") Long employeeId) throws IOException, ClassNotFoundException {
         System.out.println("Deleting...");
-        Employee employee = (Employee) initializeConnection.sendTransferObject("deleteEmployee", new Employee(employeeId));
-        return employee;
+        return (Employee) initializeConnection.sendTransferObject("deleteEmployee", new Employee(employeeId));
     }
 }

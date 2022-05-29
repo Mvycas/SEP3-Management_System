@@ -1,8 +1,6 @@
 package group3.controllers;
 
 import group3.model.Employee;
-import group3.model.User;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
 import java.util.List;

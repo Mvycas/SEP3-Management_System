@@ -1,17 +1,27 @@
 package group3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "employee")
 public class Employee extends User implements Serializable {
 
+    private static final long serialVersionUID = 6529685098267757690L;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "enrolledEmployees")
+    private Set<Shift> shifts = new HashSet<>();
 
     @Column(name = "address")
     private String address;
 
     @Column(name = "hours")
     private double hours;
+
 
     public Employee() {}
 
@@ -41,5 +51,9 @@ public class Employee extends User implements Serializable {
 
     public void setHours(double hours) {
         this.hours = hours;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
     }
 }

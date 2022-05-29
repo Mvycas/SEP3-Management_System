@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Shift implements Serializable {
 
+    private static final long serialVersionUID = -7065683873804696266L;
+
+
+    private Long employee_id;
     private Long id;
     private String description;
     private String address;
@@ -17,6 +21,17 @@ public class Shift implements Serializable {
     public Shift(Long id)
     {
         this.id = id;
+    }
+
+    public Shift(Long id, Long employee_id, String description, String address, String time, String date, int hands_req)
+    {
+        this.id = id;
+        this.employee_id = employee_id;
+        this.description = description;
+        this.address = address;
+        this.time = time;
+        this.date = date;
+        this.hands_req = hands_req;
     }
 
     public Shift(Long id, String description, String address, String time, String date, int hands_req) {
@@ -75,4 +90,13 @@ public class Shift implements Serializable {
     public void setHands_req(int hands_req) {
         this.hands_req = hands_req;
     }
+
+    public Long getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(Long employee_id) {
+        this.employee_id = employee_id;
+    }
+
 }

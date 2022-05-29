@@ -1,7 +1,11 @@
 ﻿@page "/Shifts"
 @using PoCLayer1.Model
 @using PoCLayer1.Http
+@using PoCLayer1.Authentication
 @inject IShiftHttpClient _iShiftHttpClient
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject IAuthService _authS
+
 
 <h3>Shifts: </h3>
 
@@ -23,7 +27,19 @@ else
     <table class="table">
         <thead>
         <tr>
-            <th>Shift ID</th> <th>description</th> <th>date</th> <th>time</th> <th>Hands required</th> <th>Remove</th>
+            <th>Shift ID</th> 
+            <th>description</th> 
+            <th>date</th> 
+            <th>time</th> 
+            <th>Hands required</th>  
+            
+            <AuthorizeView Roles="Manager">
+                <th>Remove</th>
+            </AuthorizeView>
+            
+            <AuthorizeView Roles="Employee">
+                <th>Assign</th>
+            </AuthorizeView>
         </tr>
         </thead>
         <tbody>
@@ -31,11 +47,25 @@ else
         {
             <tr>
                 <td>@item.id</td> <td>@item.description</td> <td>@item.date</td> <td>@item.time</td> <td>@item.handsReq</td>
-                <td>
-                                    <label @onclick="@(() => RemoveShift(item.id))" style="cursor:pointer; color: red; font-weight: bold">
-                                        &#x2717;
-                                    </label>
-                                </td>
+                
+                <AuthorizeView Roles="Manager">
+                    <td>
+                        <label @onclick="@(() => RemoveShift(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                            &#x2717;
+                        </label>
+                    </td>
+                </AuthorizeView>
+                
+                <AuthorizeView Roles="Employee">
+                    <td>
+                        <label @onclick="@(() => EnrollToShift(item.id))" style="cursor:pointer; color: green; font-weight: bold">
+                            &#9995;
+                        </label>
+                    </td>
+                </AuthorizeView>
+                
+                
+
             </tr>
         }
         </tbody>
@@ -50,10 +80,13 @@ else
     
     private ICollection<Shift> shifts;
     private string errorLabel;
+    private Shift shiftToEnroll;
+
 
     protected override async Task OnInitializedAsync()
     {
         shifts = await _iShiftHttpClient.GetAllShiftsAsync();
+        
     }
     
     private async Task RemoveShift(long id)
@@ -69,6 +102,26 @@ else
         {
             errorLabel = e.Message;
         }
+    }
+
+    private async Task EnrollToShift(long id)
+    {
+        
+        errorLabel = "";
+        try
+        {
+            long loggedUser =  await _authS.GetCurrentUserId();
+            
+            Console.WriteLine(" testux: " + loggedUser);
+
+            shiftToEnroll = await _iShiftHttpClient.GetShiftByIdAsync(id);
+            await _iShiftHttpClient.EnrollToShift(id, loggedUser, shiftToEnroll);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+
     }
     
 }

@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
-using System.Threading.Channels;
-using Microsoft.AspNetCore.Mvc;
+using System.Web;
 using Microsoft.JSInterop;
 using PoCLayer1.Http;
 using PoCLayer1.Model;
@@ -31,8 +30,8 @@ public class AuthServiceImpl : IAuthService
     {
         Console.WriteLine("In LoginAsync");
 
+
         User user = new User(username, password);
-        Console.WriteLine("User made: " + user.id + " " + user.username + "     " + user);
 
         User userClaim = await userHttpClient.GetUser(user);
 
@@ -44,6 +43,7 @@ public class AuthServiceImpl : IAuthService
                  ClaimsPrincipal principal = CreateClaimsPrincipal(userClaim); // convert user object to ClaimsPrincipal
                  Console.WriteLine("Claim created, incoking change...");
                  OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
+
         }
             
     }
@@ -55,6 +55,7 @@ public class AuthServiceImpl : IAuthService
         ClaimsPrincipal principal = CreateClaimsPrincipal(user); // create ClaimsPrincipal
 
         return principal;
+        
     }
     
     private async Task<User?> GetUserFromCacheAsync()
@@ -80,7 +81,6 @@ public class AuthServiceImpl : IAuthService
     private ClaimsIdentity ConvertUserToClaimsIdentity(User user)
     {
         // here we take the information of the User object and convert to Claims
-        Console.WriteLine("claims..." + user.phoneNumber);
         List<Claim> claims = new()
         {
             new Claim(ClaimTypes.Name, user.username),
@@ -129,5 +129,13 @@ public class AuthServiceImpl : IAuthService
              return "Manager";
          }
          return "false";
+     }
+
+     public async Task<long> GetCurrentUserId()
+     {
+         User user = await GetUserFromCacheAsync();
+         User userNew = await userHttpClient.GetUser(user);
+         
+         return userNew.id;
      }
 }

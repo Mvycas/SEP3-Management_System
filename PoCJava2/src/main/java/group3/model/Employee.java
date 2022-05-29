@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class Employee extends User implements Serializable
 {
+    private static final long serialVersionUID = 6529685098267757690L;
+
     private String address;
 
     private double hours;

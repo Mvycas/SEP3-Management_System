@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using PoCLayer1.Model;
 namespace PoCLayer1.Http;
 
@@ -22,6 +23,28 @@ public class ShiftHttpClientImpl : IShiftHttpClient
             PropertyNameCaseInsensitive = true
         })!;
         
+        return returned;
+    }
+    
+    public async Task<Shift> GetShiftByIdAsync(long id)
+    {
+        using HttpClient client = new();
+        
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/shifts/{id}");
+        
+        HttpResponseMessage response = await client.GetAsync(builder.Uri);
+        
+
+        string content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
+        
+        Shift returned = JsonSerializer.Deserialize<Shift>(content, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+  
         return returned;
     }
 
@@ -65,6 +88,34 @@ public class ShiftHttpClientImpl : IShiftHttpClient
         
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+        
+        Shift returned = JsonSerializer.Deserialize<Shift>(responseContent, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+  
+        return returned;
+    }
+
+    public async Task<Shift> EnrollToShift(long shiftId, long employeeId, Shift shift)
+    {
+        using HttpClient client = new HttpClient();
+        // public Shift(long id, long employeeId, string description, string address, string time, string date, int handsReq)
+        shift.id = 5;
+        
+
+        string enrollToShiftJson = JsonSerializer.Serialize(shift);
+        
+        StringContent content = new(enrollToShiftJson, Encoding.UTF8, "application/json");
+        
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/{shiftId}/employee/{employeeId}");
+        
+        HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
+
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
         }
         
         Shift returned = JsonSerializer.Deserialize<Shift>(responseContent, new JsonSerializerOptions {

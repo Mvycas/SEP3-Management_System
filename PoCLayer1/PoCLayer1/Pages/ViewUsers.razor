@@ -26,7 +26,16 @@ else
     <table class="table">
         <thead>
         <tr>
-            <th>User ID</th> <th>Username</th> <th>First name</th> <th>Last name</th> <th>Email</th> <th>Phone number</th> <th>Remove</th> <th>Edit</th>
+            <th>User ID</th> 
+            <th>Username</th> 
+            <th>First name</th> 
+            <th>Last name</th> 
+            <th>Email</th> 
+            <th>Phone number</th> 
+            <AuthorizeView Roles="Manager">
+            <th>Remove</th> 
+            <th>Edit</th>
+            </AuthorizeView>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +43,7 @@ else
         {
             <tr>
                 <td>@item.id</td> <td>@item.username</td> <td>@item.firstName</td> <td>@item.lastName</td> <td>@item.email</td> <td>@item.phoneNumber</td>
+                <AuthorizeView Roles="Manager">
                 <td>
                     @switch (item.authLevel)
                     {
@@ -55,16 +65,17 @@ else
                 </td>
                 <td>
                     @switch (item.authLevel)
-                                    {
-                                        case "Manager" or "Admin":
-                                        {
-                                            <label @onclick="@(() => EditUser(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
-                                                &#128295;
-                                            </label>
-                                        } break;
-                                    }
+                    {
+                        case "Manager" or "Admin":
+                        {
+                            <label @onclick="@(() => EditUser(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
+                                &#128295;
+                            </label>
+                        } break;
+                    }
                 
-                                </td>
+                </td>
+               </AuthorizeView>
             </tr>
         }
         </tbody>

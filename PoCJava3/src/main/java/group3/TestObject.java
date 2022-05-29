@@ -29,7 +29,6 @@ public class TestObject {
 
             request = ((TransferObject) object).getObject();
             command = ((TransferObject) object).getCommand();
-            System.out.println("Command: " + command);
 
             newObj = testUser(request, command);
             newObj = testShift(newObj.getObject(), newObj.getCommand());
@@ -41,7 +40,12 @@ public class TestObject {
 
 
     private TransferObject testShift(Object request, String command) {
+
         if (request instanceof Shift shiftObj) {
+
+            System.out.println("Command: " + command + " " + request.toString() + " "
+                    + " " + ((Shift) request).getId() + " " + ((Shift) request).getEmployee_id());
+
             switch (command) {
                 case "post" -> shiftRepository.save(shiftObj);
                 case "all" -> {
@@ -50,6 +54,23 @@ public class TestObject {
                 }
                 case "delete" -> {
                     shiftRepository.delete(shiftObj);
+                }
+                case "getShiftById" -> {
+                    System.out.println("Getting user by id...");
+                    request = shiftRepository.findShiftById(((Shift) request).getId());
+                }
+
+                case "EnrollToShift" -> {
+
+                    System.out.println("Command: " + command + " " + request.toString() + " "
+                            + " " + ((Shift) request).getId() + " " + ((Shift) request).getEmployee_id());
+
+                    //CHANGE IT TO SET METHOD LATER: shift.set(shiftObj.getEmployee_id)
+                    Shift shift = new Shift(shiftObj.getId(), shiftObj.getEmployee_id(), shiftObj.getDescription(),
+                            shiftObj.getAddress(), shiftObj.getTime(), shiftObj.getDate(), shiftObj.getHands_req());
+
+                    shift.enrollEmployee(new Employee(shiftObj.getEmployee_id()));
+                    shiftRepository.save(shift);
                 }
             }
             return new TransferObject(request, command);
@@ -68,7 +89,6 @@ public class TestObject {
                 case "getUserById" -> {
                     System.out.println("Getting user by id...");
                     request = userRepository.findUserById(((User) request).getId());
-                    System.out.println(userRepository.findUserById(((User) request).getId()).getUsername() + " id: " + userRepository.findUserById(((User) request).getId()).getId() + " " + userRepository.findUserById(((User) request).getId()).getFirstName());
                 }
                 case "allEmployees" -> {
                     System.out.println("Finding All...");

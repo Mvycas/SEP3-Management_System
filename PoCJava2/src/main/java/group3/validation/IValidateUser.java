@@ -1,6 +1,5 @@
 package group3.validation;
 
-import group3.model.Employee;
 import group3.model.User;
 
 import java.io.IOException;

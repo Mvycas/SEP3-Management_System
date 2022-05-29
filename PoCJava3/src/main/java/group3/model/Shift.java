@@ -1,14 +1,27 @@
 package group3.model;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "shift")
 public class Shift implements Serializable {
 
+    private static final long serialVersionUID = -7065683873804696266L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+          name = "employees_enrolled",
+          joinColumns = { @JoinColumn(name = "shift_id", referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")})
+    private Set<Employee> enrolledEmployees = new HashSet<>();
+
+
+    private Long employee_id;
 
     @Column(name = "description")
     private String description;
@@ -33,6 +46,16 @@ public class Shift implements Serializable {
         this.id = id;
     }
 
+    public Shift(Long id, Long employee_id, String description, String address, String time, String date, int hands_req) {
+    this.id = id;
+    this.employee_id = employee_id;
+    this.description = description;
+    this.address = address;
+    this.time = time;
+    this.date = date;
+    this.hands_req = hands_req;
+    }
+
     public Shift(Long id, String description, String address, String time, String date, int hands_req) {
         this.id = id;
         this.description = description;
@@ -41,6 +64,8 @@ public class Shift implements Serializable {
         this.date = date;
         this.hands_req = hands_req;
     }
+
+
 
     public Long getId() {
         return id;
@@ -88,6 +113,21 @@ public class Shift implements Serializable {
 
     public void setHands_req(int hands_req) {
         this.hands_req = hands_req;
+    }
+    public Set<Employee> getEnrolledEmployees() {
+        return enrolledEmployees;
+    }
+
+    public Long getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(Long employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public void enrollEmployee(Employee employee) {
+        enrolledEmployees.add(employee);
     }
 }
 
