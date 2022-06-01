@@ -1,6 +1,10 @@
-﻿<AuthorizeView>
-    <NotAuthorized>
+﻿@page "/Home"
+@page "/"
 @page "/Login"
+
+<AuthorizeView>
+    <NotAuthorized>
+
 
 @inject NavigationManager navMgr
 @using Authentication

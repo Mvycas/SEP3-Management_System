@@ -81,6 +81,31 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
         return returned;
     }
 
+    public async Task<Employee> UpdateEmployeeAsync(long id, Employee employee)
+    {
+        using HttpClient client = new HttpClient();
+
+        string employeeToJson = JsonSerializer.Serialize(employee);
+        
+        StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
+        
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/employees/update/{id}");
+        
+        HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
+
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
+        
+        Employee returned = JsonSerializer.Deserialize<Employee>(responseContent, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        return returned;
+    }
+
     public Task<Employee> UpdateEmployeeAsync(Employee employee)
     {
         throw new NotImplementedException();
