@@ -9,5 +9,5 @@ public interface IEmployeeHttpClient
     public Task<ICollection<Employee>> GetAllEmployeesAsync();
     public Task<Employee> DeleteEmployeeByIdAsync(long id);
     public Task<Employee> UpdateEmployeeAsync(long id, Employee employee);
-
+  
 }

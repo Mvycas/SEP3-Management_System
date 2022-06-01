@@ -115,7 +115,7 @@
                 Employee newEmployee = new Employee(default, username, password, first_name, last_name, email, phone_number, "Employee", address, 58);
                 Console.WriteLine("HOME: " + newEmployee.id);
                 returnedEmployeeFromAdd = await _employeeHttpClient.AddEmployeeAsync(newEmployee);
-                //navMgr.NavigateTo("/Home");
+                navMgr.NavigateTo("/ViewUsers");
             }
 
         }

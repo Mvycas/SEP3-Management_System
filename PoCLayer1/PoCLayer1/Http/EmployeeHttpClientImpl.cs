@@ -18,7 +18,7 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
         StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
         
 
-        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/employees", content);
+        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/employees/add", content);
         
         string responseContent = await response.Content.ReadAsStringAsync();
     
@@ -35,16 +35,33 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
         return returned;
     }
 
-    public Task<Employee> GetEmployeeByIdAsync(long id)
+    public async Task<Employee> GetEmployeeByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        using HttpClient client = new();
+        
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/employees/get/{id}");
+        
+        HttpResponseMessage response = await client.GetAsync(builder.Uri);
+        
+
+        string content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
+        
+        Employee returned = JsonSerializer.Deserialize<Employee>(content, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+  
+        return returned;
     }
 
     public async Task<ICollection<Employee>> GetAllEmployeesAsync()
     {
         using HttpClient client = new HttpClient();
         
-        HttpResponseMessage response = await client.GetAsync("http://localhost:8081/api/employees");
+        HttpResponseMessage response = await client.GetAsync("http://localhost:8081/employees/getAll");
         
         string responseContent = await response.Content.ReadAsStringAsync();
         
@@ -64,7 +81,7 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
     {
         using HttpClient client = new HttpClient();
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/employees/{id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/employees/delete/{id}");
         
         HttpResponseMessage response = await client.DeleteAsync(builder.Uri);
         
@@ -83,46 +100,29 @@ public class EmployeeHttpClientImpl : IEmployeeHttpClient
 
     public async Task<Employee> UpdateEmployeeAsync(long id, Employee employee)
     {
-        using HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
 
-        string employeeToJson = JsonSerializer.Serialize(employee);
+            string employeeToJson = JsonSerializer.Serialize(employee);
         
-        StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
+            StringContent content = new(employeeToJson, Encoding.UTF8, "application/json");
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/employees/update/{id}");
+            UriBuilder builder = new UriBuilder($"http://localhost:8081/employees/update/{id}");
         
-        HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
+            HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
 
-        string responseContent = await response.Content.ReadAsStringAsync();
+            string responseContent = await response.Content.ReadAsStringAsync();
         
-        if (!response.IsSuccessStatusCode) {
-            throw new Exception($"Error: {response.StatusCode}, {content}");
-        }
+            if (!response.IsSuccessStatusCode) {
+                throw new Exception($"Error: {response.StatusCode}, {content}");
+            }
         
-        Employee returned = JsonSerializer.Deserialize<Employee>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
-        })!;
+            Employee returned = JsonSerializer.Deserialize<Employee>(responseContent, new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            })!;
 
-        return returned;
+            return returned;
+        
     }
+    
 
-    public Task<Employee> UpdateEmployeeAsync(Employee employee)
-    {
-        throw new NotImplementedException();
     }
-
-    public Task<string> CheckEmployeeAuthState(Employee employee)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> CheckIfEmployeeExists(Employee employee)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Employee> GetEmployee(Employee employee)
-    {
-        throw new NotImplementedException();
-    }
-}

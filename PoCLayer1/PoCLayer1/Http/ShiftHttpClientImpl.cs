@@ -10,7 +10,7 @@ public class ShiftHttpClientImpl : IShiftHttpClient
     {
         using HttpClient client = new HttpClient();
         
-        HttpResponseMessage response = await client.GetAsync("http://localhost:8081/api/shifts");
+        HttpResponseMessage response = await client.GetAsync("http://localhost:8081/shifts/all");
         
         string responseContent = await response.Content.ReadAsStringAsync();
         
@@ -30,7 +30,7 @@ public class ShiftHttpClientImpl : IShiftHttpClient
     {
         using HttpClient client = new();
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/shifts/{id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/shifts/{id}");
         
         HttpResponseMessage response = await client.GetAsync(builder.Uri);
         
@@ -59,7 +59,7 @@ public class ShiftHttpClientImpl : IShiftHttpClient
         
         Console.WriteLine("TESTING SHIFT HTTP CLIENT IMPL LAYER 1: " + shift.address + " content: " + content);
         
-        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/shift", content);
+        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/shifts/add", content);
         
         string responseContent = await response.Content.ReadAsStringAsync();
     
@@ -80,7 +80,7 @@ public class ShiftHttpClientImpl : IShiftHttpClient
     {
         using HttpClient client = new HttpClient();
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/shifts/{id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/shifts/{id}");
         
         HttpResponseMessage response = await client.DeleteAsync(builder.Uri);
         
@@ -108,9 +108,9 @@ public class ShiftHttpClientImpl : IShiftHttpClient
         
         StringContent content = new(enrollToShiftJson, Encoding.UTF8, "application/json");
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/{shiftId}/employee/{employeeId}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/shifts/{shiftId}/{employeeId}");
         
-        HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
+        HttpResponseMessage response = await client.PostAsync(builder.Uri, content);
 
         string responseContent = await response.Content.ReadAsStringAsync();
         

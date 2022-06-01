@@ -108,3 +108,7 @@ C:\Users\Alex\RiderProjects\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug
 C:\Users\Alex\RiderProjects\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\PoCLayer1.genruntimeconfig.cache
 C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\EditUser.razor.rz.scp.css
 C:\Users\Alex\RiderProjects\SEP3-Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\EditUser.razor.rz.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\ManagerEditEmployee.razor.rz.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\ManagerEditOwnAcc.razor.rz.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\AdminEditOwnAcc.razor.rz.scp.css
+C:\Users\Martynas\Desktop\SEP3\Management_System\PoCLayer1\PoCLayer1\obj\Debug\net6.0\scopedcss\Pages\EmployeeEditOwnAcc.razor.rz.scp.css

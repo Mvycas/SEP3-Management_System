@@ -54,22 +54,53 @@
             </div>
         </AuthorizeView>
 
-        <AuthorizeView Roles="Manager, Employee">
+        <AuthorizeView Roles="Manager, Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="ViewUsers">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Users information
                 </NavLink>
             </div>
         </AuthorizeView>
+        
+        <AuthorizeView Roles="Employee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ViewUsers">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Management contacts
+                </NavLink>
+            </div>
+        </AuthorizeView>
 
-        <AuthorizeView Roles="Manager">
+        <AuthorizeView Roles="Manager, Employee">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EmployeeData">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Employee data
                 </NavLink>
             </div>
         </AuthorizeView>
-
+        
+        <AuthorizeView Roles="Manager">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManagerEditOwnAcc">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit account
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Employee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="EmployeeEditOwnAcc">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit account
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Admin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AdminEditOwnAcc">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit account
+                </NavLink>
+            </div>
+        </AuthorizeView>
 
 
     </nav>

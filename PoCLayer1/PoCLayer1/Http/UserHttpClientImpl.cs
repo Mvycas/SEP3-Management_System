@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
 using PoCLayer1.Model;
 
 namespace PoCLayer1.Http;
@@ -18,7 +17,7 @@ public class UserHttpClientImpl : IUserHttpClient
         StringContent content = new(userToJson, Encoding.UTF8, "application/json");
         
 
-        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/users", content);
+        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/users/add", content);
         
         string responseContent = await response.Content.ReadAsStringAsync();
     
@@ -40,7 +39,7 @@ public class UserHttpClientImpl : IUserHttpClient
     {
         using HttpClient client = new();
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/users/{id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/users/{id}");
         
         HttpResponseMessage response = await client.GetAsync(builder.Uri);
         
@@ -62,7 +61,7 @@ public class UserHttpClientImpl : IUserHttpClient
     {
         using HttpClient client = new HttpClient();
         
-        HttpResponseMessage response = await client.GetAsync("http://localhost:8081/api/users");
+        HttpResponseMessage response = await client.GetAsync("http://localhost:8081/users/all");
         
         string responseContent = await response.Content.ReadAsStringAsync();
         
@@ -82,7 +81,7 @@ public class UserHttpClientImpl : IUserHttpClient
     {
         using HttpClient client = new HttpClient();
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/users/{id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/users/{id}");
         
         HttpResponseMessage response = await client.DeleteAsync(builder.Uri);
         
@@ -107,7 +106,7 @@ public class UserHttpClientImpl : IUserHttpClient
         
         StringContent content = new(userToJson, Encoding.UTF8, "application/json");
         
-        UriBuilder builder = new UriBuilder($"http://localhost:8081/api/users/{id}");
+        UriBuilder builder = new UriBuilder($"http://localhost:8081/users/{id}");
         
         HttpResponseMessage response = await client.PutAsync(builder.Uri, content);
 
@@ -124,51 +123,6 @@ public class UserHttpClientImpl : IUserHttpClient
         return returned;
     }
 
-    public async Task<string> CheckUserAuthState(User user)
-    {
-        using HttpClient client = new();
-
-        string userToJson = JsonSerializer.Serialize(user);
-
-        StringContent content = new(userToJson, Encoding.UTF8, "application/json");
-        
-        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/user_auth", content);
-        
-        string responseContent = await response.Content.ReadAsStringAsync();
-    
-        Console.WriteLine("responseContent: " + responseContent);
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
-        }
-
-        return responseContent;
-    }
-    public async Task<bool> CheckIfUserExists(User user)
-    {
-        using HttpClient client = new();
-
-        string userToJson = JsonSerializer.Serialize(user);
-
-        StringContent content = new(userToJson, Encoding.UTF8, "application/json");
-        
-        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/user_exists", content);
-        
-        string responseContent = await response.Content.ReadAsStringAsync();
-    
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
-        }
-    
-        bool returned = JsonSerializer.Deserialize<bool>(responseContent, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-
-        return returned;
-    }
-
     public async Task<User> GetUser(User user)
     {
         using HttpClient client = new();
@@ -177,7 +131,7 @@ public class UserHttpClientImpl : IUserHttpClient
 
         StringContent content = new(userToJson, Encoding.UTF8, "application/json");
         
-        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/api/user", content);
+        HttpResponseMessage response = await client.PostAsync("http://localhost:8081/users/validate", content);
         
         string responseContent = await response.Content.ReadAsStringAsync();
     
