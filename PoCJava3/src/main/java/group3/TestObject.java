@@ -81,29 +81,39 @@ public class TestObject {
     private TransferObject testUser(Object request, String command) {
         if (request instanceof User userObj) {
             switch (command) {
-                case "post" -> userRepository.save(userObj);
+
                 case "all" -> {
                     System.out.println("Finding All...");
                     request = userRepository.findAll();
                 }
+
+                case "post" -> userRepository.save(userObj);
+
+                case "update" -> {
+                    userRepository.save(userObj);
+                }
+
+                case "delete" -> {
+                    userRepository.delete(userObj);
+                }
+
                 case "getUserById" -> {
-                    System.out.println("Getting user by id...");
                     request = userRepository.findUserById(((User) request).getId());
                 }
+
                 case "allEmployees" -> {
-                    System.out.println("Finding All...");
                     request = employeeRepository.findAll();
                 }
-                case "delete" -> {
-                    System.out.println("Deleting...");
-                    userRepository.delete(userObj);
+                case "getEmployeeById" -> {
+                    request = employeeRepository.findEmployeeById(((Employee) request).getId());
                 }
                 case "deleteEmployee" -> {
                     employeeRepository.delete(new Employee(((Employee) request).getId()));
                 }
-                case "update" -> {
-                    userRepository.save(userObj);
+                case "updateEmployee" -> {
+                    employeeRepository.save((Employee)userObj);
                 }
+
             }
             return new TransferObject(request, command);
         }

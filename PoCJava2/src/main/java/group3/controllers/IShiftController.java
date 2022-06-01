@@ -12,3 +12,4 @@ public interface IShiftController {
     public Shift deleteShift(Long shiftId) throws IOException, ClassNotFoundException;
     public Shift enrollToShift(Long shiftId, Long employeeId, Shift shift) throws IOException, ClassNotFoundException;
 }
+

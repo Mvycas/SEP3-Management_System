@@ -10,3 +10,4 @@ public interface IEmployeeController {
     public List<Employee> getAllEmployees() throws IOException, ClassNotFoundException;
     public Employee deleteEmployee(Long employeeId) throws IOException, ClassNotFoundException;
 }
+

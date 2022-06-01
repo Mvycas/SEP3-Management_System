@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UsersControllerImpl implements IUsersController {
 
     @Autowired
@@ -20,8 +20,7 @@ public class UsersControllerImpl implements IUsersController {
     IValidateUser validateUser;
 
 
-    //get users
-    @GetMapping("/users")
+    @GetMapping("/all")
     public List<User> getAllUsers() throws IOException, ClassNotFoundException {
         System.out.println("Getting All");
         User user = new User();
@@ -29,9 +28,7 @@ public class UsersControllerImpl implements IUsersController {
         return allUsers;
     }
 
-
-    //get user by id
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") Long userId) throws IOException, ClassNotFoundException {
         User user = new User();
         user = (User) initializeConnection.sendTransferObject("getUserById", new User(userId));
@@ -39,9 +36,8 @@ public class UsersControllerImpl implements IUsersController {
 
     }
 
-    //save user
-    @PostMapping("users")
-    public User createUser(@RequestBody User user) throws IOException, InterruptedException, ClassNotFoundException {
+    @PostMapping("/add")
+    public User createUser(@RequestBody User user) throws IOException, ClassNotFoundException {
 
         System.out.println("Posting...");
         User newUser = (User) initializeConnection.sendTransferObject("post", user);
@@ -49,26 +45,21 @@ public class UsersControllerImpl implements IUsersController {
         return newUser;
     }
 
-    //update user
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public User updateUser(@PathVariable("id") Long userId, @RequestBody User user) throws IOException, ClassNotFoundException {
 
         System.out.println("Updating...");
-        User newUser = (User) initializeConnection.sendTransferObject("update",
-                new User(userId, user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(),
-                        user.getEmail(), user.getPhoneNumber(), user.getAuthLevel()));
+        User newUser = (User) initializeConnection.sendTransferObject("update", user);
         return newUser;
     }
 
-    //delete user
-    @DeleteMapping("users/{id}")
+    @DeleteMapping("/{id}")
     public User deleteUser(@PathVariable("id") Long userId) throws IOException, ClassNotFoundException {
         System.out.println("Deleting...");
         User user = (User) initializeConnection.sendTransferObject("delete", new User(userId));
         return user;
     }
 
-    @PostMapping("user_exists")
     public boolean checkIfUserExists(@RequestBody User user) throws IOException, ClassNotFoundException
     {
         if (validateUser.userExists(user))
@@ -83,13 +74,12 @@ public class UsersControllerImpl implements IUsersController {
         }
     }
 
-    @PostMapping("user_auth")
     public String checkUserAuthState(@RequestBody User user) throws IOException, ClassNotFoundException
     {
         return validateUser.userAuthState(user);
     }
 
-    @PostMapping("user")
+    @PostMapping("validate")
     public User getUser(@RequestBody User user) throws IOException, ClassNotFoundException
     {
         return validateUser.userInfo(user);

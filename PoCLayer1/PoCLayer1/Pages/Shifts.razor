@@ -86,7 +86,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         shifts = await _iShiftHttpClient.GetAllShiftsAsync();
-        
     }
     
     private async Task RemoveShift(long id)

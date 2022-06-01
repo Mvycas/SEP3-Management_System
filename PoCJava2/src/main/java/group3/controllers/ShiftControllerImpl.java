@@ -9,20 +9,20 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/shifts")
 public class ShiftControllerImpl implements IShiftController {
 
     @Autowired
     InitializeConnection initializeConnection;
 
-    @GetMapping("/shifts")
+    @GetMapping("/all")
     public List<Shift> getAllShifts() throws IOException, ClassNotFoundException {
         System.out.println("Getting All");
         Shift shift = new Shift();
         return (List<Shift>) initializeConnection.sendTransferObject("all", shift);
     }
 
-    @GetMapping("/shifts/{id}")
+    @GetMapping("/{id}")
     public Shift getShiftById(@PathVariable("id") Long shiftId) throws IOException, ClassNotFoundException {
         Shift Shift = new Shift();
         Shift = (Shift) initializeConnection.sendTransferObject("getShiftById", new Shift(shiftId));
@@ -30,7 +30,7 @@ public class ShiftControllerImpl implements IShiftController {
 
     }
 
-    @PostMapping("shift")
+    @PostMapping("/add")
     public Shift addShift(@RequestBody Shift shift) throws IOException, ClassNotFoundException {
         System.out.println("Posting...");
         Shift newShift = (Shift) initializeConnection.sendTransferObject("post", shift);
@@ -38,18 +38,18 @@ public class ShiftControllerImpl implements IShiftController {
         return newShift;
     }
 
-    @DeleteMapping("/shifts/{id}")
+    @DeleteMapping("/{id}")
     public Shift deleteShift(@PathVariable("id") Long shiftId) throws IOException, ClassNotFoundException {
         System.out.println("Deleting...");
         Shift shift = (Shift) initializeConnection.sendTransferObject("delete", new Shift(shiftId));
         return shift;
     }
 
-    @PostMapping("{shiftId}/employee/{employeeId}")
+    @PostMapping("{shiftId}/{employeeId}")
     public Shift enrollToShift(@PathVariable Long shiftId, @PathVariable Long employeeId, @RequestBody Shift shift) throws IOException, ClassNotFoundException {
         System.out.println("Enrolling to the shift...");
         return (Shift) initializeConnection.sendTransferObject("EnrollToShift",
                 new Shift(shiftId, employeeId, shift.getDescription(), shift.getAddress(), shift.getTime(), shift.getDate(), shift.getHands_req()));
     }
-    
+
 }

@@ -16,9 +16,9 @@ public class Shift implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-          name = "employees_enrolled",
-          joinColumns = {@JoinColumn(name = "shift_id", referencedColumnName = "id", insertable = false, updatable = false)},
-    inverseJoinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id", insertable = false, updatable = false)})
+            name = "employees_enrolled",
+            joinColumns = {@JoinColumn(name = "shift_id", referencedColumnName = "id", insertable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id", insertable = false, updatable = false)})
     private List<Employee> enrolledEmployees = new ArrayList<>();
 
 
@@ -48,13 +48,13 @@ public class Shift implements Serializable {
     }
 
     public Shift(Long id, Long employee_id, String description, String address, String time, String date, int hands_req) {
-    this.id = id;
-    this.employee_id = employee_id;
-    this.description = description;
-    this.address = address;
-    this.time = time;
-    this.date = date;
-    this.hands_req = hands_req;
+        this.id = id;
+        this.employee_id = employee_id;
+        this.description = description;
+        this.address = address;
+        this.time = time;
+        this.date = date;
+        this.hands_req = hands_req;
     }
 
     public Shift(Long id, String description, String address, String time, String date, int hands_req) {
