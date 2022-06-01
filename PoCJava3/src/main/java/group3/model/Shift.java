@@ -1,5 +1,7 @@
 package group3.model;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +27,11 @@ public class Shift implements Serializable {
     private Long employee_id;
 
     @Column(name = "description", nullable = false)
+    @Size(max = 150)
     private String description;
 
     @Column(name = "address", nullable = false)
+    @Size(max = 50)
     private String address;
 
     @Column(name = "time", nullable = false)
@@ -37,6 +41,7 @@ public class Shift implements Serializable {
     private String date;
 
     @Column(name = "hands_req", nullable = false)
+    @Max(50)
     private int hands_req;
 
     public Shift() {

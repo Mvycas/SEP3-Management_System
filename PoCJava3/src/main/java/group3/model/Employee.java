@@ -3,6 +3,7 @@ package group3.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Employee extends User implements Serializable {
     private List<Shift> shifts = new ArrayList<>();
 
     @Column(name = "address", nullable = false)
+    @Size(max = 50)
     private String address;
 
     @Column(name = "hours", nullable = false)
