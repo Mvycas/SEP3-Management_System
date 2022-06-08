@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Martynas\\.nuget\\packages\\": {}
+    "C:\\Users\\Peter\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
+      "projectUniqueName": "C:\\Users\\Peter\\Desktop\\SEP3\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
       "projectName": "PoCLayer1",
-      "projectPath": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
-      "packagesPath": "C:\\Users\\Martynas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Martynas\\Desktop\\SEP3\\Management_System\\PoCLayer1\\PoCLayer1\\obj\\",
+      "projectPath": "C:\\Users\\Peter\\Desktop\\SEP3\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\PoCLayer1.csproj",
+      "packagesPath": "C:\\Users\\Peter\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Peter\\Desktop\\SEP3\\SEP3-Management_System\\PoCLayer1\\PoCLayer1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Martynas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Peter\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
